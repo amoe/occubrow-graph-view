@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import mc from './mutation-constants';
 import actions from './actions';
+import { NodeFillMap } from './interfaces';
 
 Vue.use(Vuex);
 
@@ -18,7 +19,7 @@ export default new Vuex.Store({
         // potential hit areas for draggable.
         widgetDropTargets: [],
         nodeDropTargets: [] as Vue[],
-        nodeFill: {},
+        nodeFill: {} as NodeFillMap,
         popoverActive: false,
         taxonomyModel: null
     },

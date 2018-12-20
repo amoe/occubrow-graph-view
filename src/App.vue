@@ -18,7 +18,6 @@
 import Vue from 'vue';
 import utility from './utility';
 import * as d3 from 'd3';
-import graph from './graph';
 import GraphView from './components/GraphView.vue';
 import {mapGetters} from 'vuex';
 import bus from './event-bus';

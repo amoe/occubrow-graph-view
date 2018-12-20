@@ -28,7 +28,6 @@ import Vue from 'vue';
 import GraphNode from './GraphNode.vue';
 import * as d3 from 'd3';
 import layoutFunctions from '../layout-functions';
-import graph from '../graph';
 import bus from '../event-bus';
 import events from '../events';
 import axios from 'axios';
@@ -149,7 +148,7 @@ export default Vue.extend({
             }
         },
         filteredDescendants: function (this: any) {
-            return this.root.descendants().filter(d => {
+            return this.root.descendants().filter((d: any) => {
                 console.log("taxo-model is %o", this.taxonomyModel);
 
                 const wantedParentName = 'Ulmaridae';

@@ -38,3 +38,7 @@ export interface GVNode {
     data: any;
     children: GVNode[];
 }
+
+export interface NodeFillMap {
+    [key: number]: string;
+}
