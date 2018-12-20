@@ -73,6 +73,9 @@ export default Vue.extend({
                     bus.$emit(events.DRAG_OPERATION_STARTED);
                 },
                 onDrag: function(this: any) {
+                    // For all of these any-annotated functions below, the type is actually
+                    // GraphNode.  But I'm worried that it's going to be impossible to refer
+                    // to the GraphNode type from within itself.
                     const withoutMe = instance.nodeDropTargets.filter(
                         function (n: any) {
                             return n.index !== instance.index;
@@ -80,12 +83,14 @@ export default Vue.extend({
                     );
 
                     const targetsHit = withoutMe.filter(
-                        function (n: any) {
+                        function (this: any, n: any) {
                             return this.hitTest(n.getGhostNodeCircle());
                         }
                     );
 
-                    const hoveredIndices: number[] = targetsHit.map(n => n.index);
+                    const hoveredIndices: number[] = targetsHit.map(
+                        function (n: any) { return n.index; }
+                    );
 
                     log.trace("hovered indices are %o", hoveredIndices);
 
