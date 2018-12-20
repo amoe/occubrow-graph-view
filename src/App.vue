@@ -24,7 +24,7 @@ import {mapGetters} from 'vuex';
 import bus from './event-bus';
 import events from './events';
 import * as log from 'loglevel';
-import * as TreeModel from 'tree-model';
+import TreeModel from 'tree-model';
 import mc from './mutation-constants';
 import axios from 'axios';
 
