@@ -18,14 +18,14 @@
 import Vue from 'vue';
 import utility from '../utility';
 import * as d3 from 'd3';
-import graph from '../graph';
+import graph from './graph';
 import GraphView from './GraphView.vue';
 import {mapGetters} from 'vuex';
 import bus from '../event-bus';
 import events from '../events';
 import * as log from 'loglevel';
 import * as TreeModel from 'tree-model';
-import mc from '../mutation-constants';
+import mc from './mutation-constants';
 import axios from 'axios';
 
 const STATIC_TAXONOMY_DATA = {"_type":"Taxon","children":[{"_type":"Taxon","children":[{"_type":"Taxon","id":63754,"name":"Deepstaria enigmatica"},{"_type":"Taxon","id":63759,"name":"Deepstaria reticulum"}],"id":63752,"name":"Deepstaria"},{"_type":"Taxon","children":[{"_type":"Taxon","id":63760,"name":"Aurelia labiata"},{"_type":"Taxon","id":63761,"name":"Aurelia aurita"}],"id":63753,"name":"Aurelia"}],"id":63751,"name":"Ulmaridae"}
