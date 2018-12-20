@@ -157,25 +157,26 @@ export default Vue.extend({
                     this.taxonomyModel, wantedParentName
                 );
 
-                const maybeChild = taxonomyFunctions.getNodeForCategoryName(
-                    this.taxonomyModel, d.data.taxon
-                );
+                try {
+                    const child = taxonomyFunctions.getNodeForCategoryName(
+                        this.taxonomyModel, d.data.taxon
+                    );
 
-                if (maybeChild === undefined) {
-                    log.warn("Taxon was not found for data point %o", d);
+                    console.log("wantedParent is %o", wantedParent);
+                    console.log("child is %o", child);
+
+                    const descVal = taxonomyFunctions.isDescendant(
+                        wantedParent, child
+                    );
+
+                    console.log("desc val = %o", descVal);
+
+                    return descVal;
+                } catch (e) {
+                    // Not really sure what to do in this case.
+                    log.warn(e);
                     return true;
                 }
-                    
-                console.log("wantedParent is %o", wantedParent);
-                console.log("maybeChild is %o", maybeChild);
-
-                const descVal = taxonomyFunctions.isDescendant(
-                    wantedParent, maybeChild
-                );
-
-                console.log("desc val = %o", descVal);
-
-                return descVal;
             });
         },
         rootTranslation: function(this: any) {
