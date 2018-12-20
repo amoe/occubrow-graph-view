@@ -1,7 +1,4 @@
 export default {
-    widgetOrder(state, getters) {
-        return state.widgetOrder;
-    },
     graphData(state, getters) {
         return state.graphData;
     },
