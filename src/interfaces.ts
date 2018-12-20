@@ -29,3 +29,12 @@ interface CategoryNodeModel {
 }
 
 export type CategoryNode = Node<CategoryNodeModel>
+
+
+export interface GVNode {
+    x: number;
+    y: number;
+    parent: GVNode | null;
+    data: any;
+    children: GVNode[];
+}

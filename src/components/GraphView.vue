@@ -32,7 +32,7 @@ import graph from '../graph';
 import bus from '../event-bus';
 import events from '../events';
 import axios from 'axios';
-import { PolarPoint, CartesianPoint } from '../interfaces';
+import { PolarPoint, CartesianPoint, GVNode } from '../interfaces';
 import {sprintf} from 'sprintf-js';
 import mc from '../mutation-constants';
 import {mapGetters} from 'vuex';
@@ -59,7 +59,7 @@ export default Vue.extend({
             console.log("node set was found as %o", this.$refs.nodes);
             this.$store.commit(mc.SET_NODE_DND_TARGETS, this.$refs.nodes);
         },
-        getTextRotation(node) {
+        getTextRotation(node: GVNode) {
             let rotation;
 
             if (node.x < 180) {
@@ -70,14 +70,14 @@ export default Vue.extend({
 
             return "rotate(" + rotation + ")";
         },
-        getTextAnchor(node) {
+        getTextAnchor(node: GVNode) {
             if (layoutFunctions.isOnRightSide(node)) {
                 return "start";
             } else {
                 return "end";
             }
         },
-        getTextXOffset(node) {
+        getTextXOffset(node: GVNode) {
             // This is like exclusive or or some shit.
             if (layoutFunctions.isOnRightSide(node)) {
                 return this.textOffset;
@@ -85,8 +85,10 @@ export default Vue.extend({
                 return -this.textOffset;
             }
         },
-        getPathDescription(node) {
+        getPathDescription(node: GVNode) {
             const d = node;
+
+            if (d.parent === null) throw new Error("can't happen");
 
             const sourcePoint: PolarPoint = {
                 angle: d.parent.x,
@@ -106,7 +108,7 @@ export default Vue.extend({
 
             return layoutFunctions.getPathDescriptionForEdge(sourcePoint, sourceRadius, targetPoint)
         },
-        getNodeGroupTransformation(d) {
+        getNodeGroupTransformation(d: GVNode) {
             const p1: PolarPoint = {
                 angle: d.x,
                 radius: d.y
@@ -116,7 +118,7 @@ export default Vue.extend({
 
             return `translate(${p2.x}, ${p2.y})`;
         },
-        getNodeGroupClass(d) {
+        getNodeGroupClass(d: GVNode) {
             // These classes can be helpful to allow styling the internal and 
             // leaf nodes differently.
             if (d.children) {
@@ -125,7 +127,7 @@ export default Vue.extend({
                 return "node leaf-node";
             }
         },
-        getNodeTextContent(d) {
+        getNodeTextContent(d: GVNode) {
             return `${d.data.id} [${d.data.taxon}]`;
         },
     },

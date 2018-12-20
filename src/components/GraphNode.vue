@@ -51,7 +51,7 @@ export default Vue.extend({
             ghostOpacity: 0.0,
             isPointerEventsEnabled: true,
             ghostRadius: 16,
-            hoverTimeout: null
+            hoverTimeout: null as (number | null)
         };
     },
     created() {
@@ -136,7 +136,7 @@ export default Vue.extend({
         getGhostNodeCircle(): HTMLElement {
             return this.$refs.ghostNodeSvgCircle as HTMLElement;
         },
-        handleMouseover(e) {
+        handleMouseover(e: Event) {
              this.hoverTimeout = window.setTimeout(
                  function() {
                      console.log("hover event");
@@ -144,7 +144,9 @@ export default Vue.extend({
                  constants.HOVER_RECENTER_ACTION_TIME_MS
              );
         },
-        handleMouseout(e) {
+        handleMouseout(e: Event) {
+            if (this.hoverTimeout === null) throw new Error("can't happen");
+
             window.clearTimeout(this.hoverTimeout)
         },
     },
