@@ -47,16 +47,13 @@ export default Vue.extend({
     },
     methods: {
         updateFromBackend(this: any) {
-            const loading = this.$loading();
 
             axios.get(
                 "/api/tezra/tree?root=" + this.selectedRoot + "&zoom_depth=" + this.zoomDepth
             ).then(response => {
                 this.$store.commit(mc.SET_GRAPH_DATA, response.data);
-                loading.close();
             }).catch(error => {
-                this.$message.error('Failed to query data from API');
-                loading.close();
+                console.error("failed to query data from api");
             });
         }
     },
