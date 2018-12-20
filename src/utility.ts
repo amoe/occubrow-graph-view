@@ -1,6 +1,8 @@
+import { AxiosError } from 'axios';
+
 const functions = {
     // This is taken from the Axios docs.  Should be ported to loglevel
-    handleAxiosError(error) {
+    handleAxiosError(error: AxiosError) {
         if (error.response) {
             // The request was made and the server responded with a status code
             // that falls out of the range of 2xx
