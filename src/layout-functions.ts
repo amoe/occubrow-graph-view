@@ -1,15 +1,8 @@
-import { PolarPoint, CartesianPoint } from './interfaces';
+import { PolarPoint, CartesianPoint, GVNode } from './interfaces';
 
-function getParentId(d) {
-    return d.id.substring(0, d.id.lastIndexOf("."));
-}
 
-// Not sure what's happening here
-function ourCompare(a, b) {
-    return a.height - b.height || a.id.localeCompare(b.id);
-}
 
-function isOnRightSide(node) {
+function isOnRightSide(node: GVNode) {
     const isInFirstHalf = node.x < 180;
     const isLeafNode = !node.children;
 
@@ -93,6 +86,6 @@ function getPathDescriptionForEdge(arche: PolarPoint, sourceRadius: number, telo
 }
 
 export default {
-    getParentId, ourCompare, isOnRightSide, getPathDescriptionForEdge,
+    isOnRightSide, getPathDescriptionForEdge,
     polarToCartesian
 };

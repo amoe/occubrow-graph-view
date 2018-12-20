@@ -192,11 +192,6 @@ export default Vue.extend({
 
             const cluster = d3.cluster().size([this.breadth, depth]);
 
-
-            // This is one option; not sure if sort is needed
-           // const stratify = d3.stratify().parentId(getParentId);
-           // const root = stratify(this.data).sort(ourCompare);
-
             // This is another option
             let root = d3.hierarchy(this.graphData, d => d.children);
 

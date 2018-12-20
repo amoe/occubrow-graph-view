@@ -2,7 +2,6 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import mc from './mutation-constants';
 import actions from './actions';
-import getters from './getters';
 
 Vue.use(Vuex);
 
