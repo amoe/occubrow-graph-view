@@ -85,16 +85,6 @@ export default Vue.extend({
         xMarginPx: function (this: any) {
             return document.documentElement.clientHeight * this.xMarginVh;
         },
-        nodesAtLevel: function (this: any) {
-            // XXX: We should be taking this tree from the one that is pulled
-            // by the WidgetBar component.
-            const tree = new TreeModel();
-            const root = tree.parse({name: 'a', children: [{name: 'b'}]});
-
-            // We need to map them to name-only afterward, otherwise they
-            // just won't print out.
-            return graph.getAllNodesAtLevel(root, 2).map(n => n.model.name);
-        },
         count: function (this: any) {
             return this.$store.state.count;
         }, ...mapGetters(['isDragInProgress', 'lastDrop', 'popoverActive', 'selectedRoot'])

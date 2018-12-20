@@ -74,10 +74,16 @@ export default Vue.extend({
                 },
                 onDrag: function(this: any) {
                     const withoutMe = instance.nodeDropTargets.filter(
-                        n => n.index !== instance.index
+                        function (n: any) {
+                            return n.index !== instance.index;
+                        }
                     );
 
-                    const targetsHit = withoutMe.filter(n => this.hitTest(n.getGhostNodeCircle()));
+                    const targetsHit = withoutMe.filter(
+                        function (n: any) {
+                            return this.hitTest(n.getGhostNodeCircle());
+                        }
+                    );
 
                     const hoveredIndices: number[] = targetsHit.map(n => n.index);
 

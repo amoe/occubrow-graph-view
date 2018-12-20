@@ -7,7 +7,6 @@ import getters from './getters';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-    getters,
     state: {
         count: 0,
         // needs to be initialized to null, not an empty array, otherwise you
@@ -19,7 +18,7 @@ export default new Vuex.Store({
         // taxonomy widgets; this is needed to allow registering them as
         // potential hit areas for draggable.
         widgetDropTargets: [],
-        nodeDropTargets: [],
+        nodeDropTargets: [] as Vue[],
         nodeFill: {},
         popoverActive: false,
         taxonomyModel: null
@@ -52,6 +51,32 @@ export default new Vuex.Store({
         },
         [mc.SELECT_ROOT]: (state, newRoot) => {
             state.selectedRoot = newRoot;
+        }
+    },
+    getters: {
+        graphData(state, getters) {
+            return state.graphData;
+        },
+        possibleRoots(state, getters) {
+            return state.possibleRoots;
+        },
+        selectedRoot(state, getters) {
+            return state.selectedRoot;
+        },
+        widgetDropTargets(state, getters) {
+            return state.widgetDropTargets;
+        },
+        nodeDropTargets(state, getters): Vue[] {
+            return state.nodeDropTargets;
+        },
+        nodeFill(state, getters) {
+            return state.nodeFill;
+        },
+        popoverActive(state, getters) {
+            return state.popoverActive;
+        },
+        taxonomyModel(state, getters) {
+            return state.taxonomyModel;
         }
     },
     actions
