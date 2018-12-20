@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import mc from './mutation-constants';
+import actions from './actions';
 
 Vue.use(Vuex);
 

@@ -1,3 +1,5 @@
+import { Node } from 'tree-model';
+
 export type NodeIdentifier = string;
 
 export interface DragAndDropOperation {
@@ -21,3 +23,9 @@ export interface WidgetDisplaySpecifier {
     name: string;
     renderCount: number;
 };
+
+interface CategoryNodeModel {
+    name: string;
+}
+
+export type CategoryNode = Node<CategoryNodeModel>
