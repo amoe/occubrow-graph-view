@@ -1,34 +1,18 @@
 # occubrow-graph-view
 
-## Project setup
-```
-npm install
-```
+## Library API
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+We provide several named exports.
 
-### Compiles and minifies for production
-```
-npm run build
-```
+`GraphView` is the main entry point.  It takes the following props.
 
-### Run your tests
-```
-npm run test
-```
+`GraphViewModule` is an export that contains the vuex module.  You can add this
+to your own store via some syntax like the following.
 
-### Lints and fixes files
-```
-npm run lint
-```
+    {
+       modules: {graphView: GraphViewModule}
+    }
 
-### Run your unit tests
-```
-npm run test:unit
-```
+## Packaging as library
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+    ./node_modules/.bin/vue-cli-service build --target lib --name occubrow-graph-view src/library-entry.ts
