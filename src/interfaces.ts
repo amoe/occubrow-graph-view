@@ -1,3 +1,4 @@
+import Vue from 'vue';
 import { Node } from 'tree-model';
 
 export type NodeIdentifier = string;
@@ -44,6 +45,20 @@ export interface NodeFillMap {
 }
 
 
-// export interface RootState {
 
-// }
+
+export interface GraphNode {
+    id: any;
+    children?: GraphNode[],
+    taxon: any;
+}
+
+export interface RootState {
+    graphData: GraphNode | null,           // null if uninitialized
+    possibleRoots: string[],
+    selectedRoot: string,
+    widgetDropTargets: Element[],
+    nodeDropTargets: Vue[],
+    nodeFill: NodeFillMap,
+    taxonomyModel: CategoryNode | null,    // null if uninitialized
+}
