@@ -42,3 +42,8 @@ export interface GVNode {
 export interface NodeFillMap {
     [key: number]: string;
 }
+
+
+// export interface RootState {
+
+// }

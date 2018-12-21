@@ -83,7 +83,7 @@ export default Vue.extend({
         },
         count: function (this: any) {
             return this.$store.state.count;
-        }, ...mapGetters(['isDragInProgress', 'lastDrop', 'popoverActive', 'selectedRoot'])
+        }, ...mapGetters(['isDragInProgress', 'lastDrop', 'selectedRoot'])
     }
 });
 </script>

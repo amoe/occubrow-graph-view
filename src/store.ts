@@ -8,7 +8,6 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        count: 0,
         // needs to be initialized to null, not an empty array, otherwise you
         // see a strange intermediate state
         graphData: null,
@@ -20,18 +19,11 @@ export default new Vuex.Store({
         widgetDropTargets: [],
         nodeDropTargets: [] as Vue[],
         nodeFill: {} as NodeFillMap,
-        popoverActive: false,
         taxonomyModel: null
     },
     mutations: {
-        increment(state) {
-            state.count++;
-        },
         [mc.SET_TAXONOMY_MODEL]: (state, taxonomyModel) => {
             state.taxonomyModel = taxonomyModel;
-        },
-        [mc.ACTIVATE_POPOVER]: (state) => {
-            state.popoverActive = true;
         },
         [mc.SET_HOVERED_NODE_INDICES]: (state, hovered: number[]) => {
             state.nodeFill = {};
@@ -71,9 +63,6 @@ export default new Vuex.Store({
         },
         nodeFill(state, getters) {
             return state.nodeFill;
-        },
-        popoverActive(state, getters) {
-            return state.popoverActive;
         },
         taxonomyModel(state, getters) {
             return state.taxonomyModel;
