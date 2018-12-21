@@ -41,6 +41,7 @@ import taxonomyFunctions from '../taxonomy-functions';
 
 export default Vue.extend({
     props: {
+        graphData: {required: true},
         width: {type: Number, required: true},
         height: {type: Number, required: true},
         xMargin: {type: Number, required: true},
@@ -207,7 +208,7 @@ export default Vue.extend({
         },
         widgetDropTargets: function(this: any) {
             return this.$store.getters.widgetDropTargets;
-        }, ...mapGetters(['graphData', 'possibleRoots', 'selectedRoot', 'taxonomyModel'])
+        }, ...mapGetters(['possibleRoots', 'selectedRoot', 'taxonomyModel'])
     }
 });
 </script>

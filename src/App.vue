@@ -8,7 +8,8 @@
                   :y-margin="yMarginPx"
                   :depth-offset="depthOffset"
                   :text-offset="textOffset"
-                  :breadth="breadth"></graph-view>
+                  :breadth="breadth"
+                  :graphData="myGraphData"></graph-view>
     </svg>
   </div>
 </div>
@@ -42,16 +43,16 @@ export default Vue.extend({
             depthOffset: 120,
             textOffset: 22,   // depends on circle radius
             breadth: 360,
-            zoomDepth: 2
+            zoomDepth: 2,
+            myGraphData: null
         };
     },
     methods: {
         updateFromBackend(this: any) {
-
             axios.get(
                 "/api/tezra/tree?root=" + this.selectedRoot + "&zoom_depth=" + this.zoomDepth
             ).then(response => {
-                this.$store.commit(mc.SET_GRAPH_DATA, response.data);
+                this.myGraphData = response.data;
             }).catch(error => {
                 console.error("failed to query data from api");
             });
@@ -68,7 +69,6 @@ export default Vue.extend({
         const apiTree = new TreeModel(treeModelConfig);
         const apiRoot = apiTree.parse(STATIC_TAXONOMY_DATA as any);
         this.$store.commit(mc.SET_TAXONOMY_MODEL, apiRoot);
-
         this.$store.commit(mc.SELECT_ROOT, 'keep');
         this.updateFromBackend();
     },

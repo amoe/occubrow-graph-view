@@ -54,7 +54,6 @@ export interface GraphNode {
 }
 
 export interface GraphViewState {
-    graphData: GraphNode | null,           // null if uninitialized
     possibleRoots: string[],
     selectedRoot: string,
     widgetDropTargets: Element[],

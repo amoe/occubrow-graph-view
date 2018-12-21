@@ -21,13 +21,18 @@ this (in one of your JavaScript files):
 
 ## Example usage
 
-    <graph-view :width="600"
-                :height="600"
-                :x-margin="162"
-                :y-margin="432"
-                :depth-offset="120"
-                :text-offset="22"
-                :breadth="360"></graph-view>
+Note that the client needs to provide the parent SVG.  It's unclear at the
+moment if this is a bug or a feature.
+
+    <svg width="600" :height="600">
+      <graph-view :width="600"
+                  :height="600"
+                  :x-margin="162"
+                  :y-margin="432"
+                  :depth-offset="120"
+                  :text-offset="22"
+                  :breadth="360"></graph-view>
+    </svg>
 
 
 ## Packaging as library

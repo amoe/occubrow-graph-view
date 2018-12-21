@@ -7,9 +7,6 @@ import { GraphViewState, RootState } from './interfaces';
 
 const graphView: Module<GraphViewState, RootState> = {
     state: {
-        // needs to be initialized to null, not an empty array, otherwise you
-        // see a strange intermediate state
-        graphData: null,
         possibleRoots: [],
         selectedRoot: 'Oyl',
         // Stores a reference to the DOM elements that get populated by the
@@ -34,9 +31,6 @@ const graphView: Module<GraphViewState, RootState> = {
         [mc.SET_NODE_DND_TARGETS]: (state, targets: Vue[]) => {
             state.nodeDropTargets = targets;
         },
-        [mc.SET_GRAPH_DATA]: (state, data) => {
-            state.graphData = data;
-        },
         [mc.SET_POSSIBLE_ROOTS]: (state, possibleRoots) => {
             state.possibleRoots = possibleRoots;
         },
@@ -45,9 +39,6 @@ const graphView: Module<GraphViewState, RootState> = {
         }
     },
     getters: {
-        graphData(state, getters) {
-            return state.graphData;
-        },
         possibleRoots(state, getters) {
             return state.possibleRoots;
         },
