@@ -1,17 +1,17 @@
 <template>
-  <div class="page">
-    <div class="graph">
-      <svg id="svg-frame" :width="width" :height="height">
-        <graph-view :width="width"
-                    :height="height"
-                    :x-margin="xMarginPx"
-                    :y-margin="yMarginPx"
-                    :depth-offset="depthOffset"
-                    :text-offset="textOffset"
-                    :breadth="breadth"></graph-view>
-      </svg>
-    </div>
+<div class="page">
+  <div class="graph">
+    <svg id="svg-frame" :width="width" :height="height">
+      <graph-view :width="width"
+                  :height="height"
+                  :x-margin="xMarginPx"
+                  :y-margin="yMarginPx"
+                  :depth-offset="depthOffset"
+                  :text-offset="textOffset"
+                  :breadth="breadth"></graph-view>
+    </svg>
   </div>
+</div>
 </template>
 
 <script lang="ts">

@@ -40,7 +40,15 @@ import * as log from 'loglevel';
 import taxonomyFunctions from '../taxonomy-functions';
 
 export default Vue.extend({
-    props: ['width', 'height', 'xMargin', 'yMargin', 'depthOffset', 'textOffset', 'breadth'],
+    props: {
+        width: {type: Number, required: true},
+        height: {type: Number, required: true},
+        xMargin: {type: Number, required: true},
+        yMargin: {type: Number, required: true},
+        depthOffset: {type: Number, required: true},
+        textOffset: {type: Number, required: true},
+        breadth: {type: Number, required: true}
+    },
     components: {GraphNode},
     data() {
         return {
