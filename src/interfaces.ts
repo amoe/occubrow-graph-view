@@ -53,7 +53,7 @@ export interface GraphNode {
     taxon: any;
 }
 
-export interface RootState {
+export interface GraphViewState {
     graphData: GraphNode | null,           // null if uninitialized
     possibleRoots: string[],
     selectedRoot: string,
@@ -61,4 +61,7 @@ export interface RootState {
     nodeDropTargets: Vue[],
     nodeFill: NodeFillMap,
     taxonomyModel: CategoryNode | null,    // null if uninitialized
+}
+
+export interface RootState {
 }
