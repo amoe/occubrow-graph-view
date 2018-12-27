@@ -136,7 +136,7 @@ export default Vue.extend({
             }
         },
         getNodeTextContent(d: GVNode) {
-            return `${d.data.id} [${d.data.taxon}]`;
+            return `${d.data.content} [${d.data.taxon}]`;
         },
     },
     computed: {

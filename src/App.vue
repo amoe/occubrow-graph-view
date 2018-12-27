@@ -1,5 +1,7 @@
 <template>
 <div class="page">
+  <h1>GRAPH-VIEW -- DEMO PAGE</h1>
+
   <div class="graph">
     <svg id="svg-frame" :width="width" :height="height">
       <graph-view :width="width"
@@ -30,6 +32,49 @@ import axios from 'axios';
 
 const STATIC_TAXONOMY_DATA = {"_type":"Taxon","children":[{"_type":"Taxon","children":[{"_type":"Taxon","id":63754,"name":"Deepstaria enigmatica"},{"_type":"Taxon","id":63759,"name":"Deepstaria reticulum"}],"id":63752,"name":"Deepstaria"},{"_type":"Taxon","children":[{"_type":"Taxon","id":63760,"name":"Aurelia labiata"},{"_type":"Taxon","id":63761,"name":"Aurelia aurita"}],"id":63753,"name":"Aurelia"}],"id":63751,"name":"Ulmaridae"}
 
+const FAKE_API_DATA = {
+    "children": [
+        {
+            "children": [
+                {
+                    "content": "peace",
+                    "id": 63765,
+                    "label": "Token"
+                },
+                {
+                    "content": "books",
+                    "id": 63767,
+                    "label": "Token"
+                }
+            ],
+            "content": "the",
+            "id": 63764,
+            "label": "Token"
+        },
+        {
+            "children": [
+                {
+                    "content": "shop",
+                    "id": 63732,
+                    "label": "Token"
+                },
+                {
+                    "content": "bar",
+                    "id": 63782,
+                    "label": "Token"
+                }
+            ],
+            "content": "a",
+            "id": 63774,
+            "label": "Token"
+        }
+    ],
+    "content": "keep",
+    "id": 63762,
+    "label": "Token"
+};
+
+
 export default Vue.extend({
     components: {GraphView},
     data: function() {
@@ -38,7 +83,7 @@ export default Vue.extend({
             activeControls: [],
             width: 600,
             height: 600,
-            yMarginVh: 0.4,
+            yMarginVh: 0.2,
             xMarginVh: 0.15,
             depthOffset: 120,
             textOffset: 22,   // depends on circle radius
@@ -49,13 +94,7 @@ export default Vue.extend({
     },
     methods: {
         updateFromBackend(this: any) {
-            axios.get(
-                "/api/tezra/tree?root=" + this.selectedRoot + "&zoom_depth=" + this.zoomDepth
-            ).then(response => {
-                this.myGraphData = response.data;
-            }).catch(error => {
-                console.error("failed to query data from api");
-            });
+            this.myGraphData = FAKE_API_DATA;
         }
     },
     created: function() {
@@ -99,37 +138,10 @@ body {
     font-family: 'Oxygen', sans-serif;
 }
 
-.widget-bar {
-    grid-row: 2;
-    grid-column: col-start 2 / span 10;
-}
-
-div.page {
-    display: grid;
-    grid-template-columns: repeat(12, [col-start] 1fr);
-}
-
-div.header {
-    grid-row: 1;
-    grid-column: col-start 2 / span 12;
-}
-
 h1 {
    font-style: italic;
 }
 
-
-div.taxonomy {
-    grid-row: 2;
-    height: 8em;
-    grid-column: col-start / span 12;
-    margin: 1em;
-}
-
-div.control-collapse {
-    grid-row: 3;
-    grid-column: col-start 2 / span 10;
-}
 
 div.graph {
     grid-row: 4;
