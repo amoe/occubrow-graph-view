@@ -11,6 +11,7 @@
                   :depth-offset="depthOffset"
                   :text-offset="textOffset"
                   :breadth="breadth"
+                  :text-content-template="textContentTemplate"
                   :graphData="myGraphData"></graph-view>
     </svg>
   </div>
@@ -79,6 +80,7 @@ export default Vue.extend({
     components: {GraphView},
     data: function() {
         return {
+            textContentTemplate: "{{content}} [{{taxon}}]",
             visible: false,
             activeControls: [],
             width: 600,
@@ -130,7 +132,6 @@ export default Vue.extend({
 <style>
 @font-face {
     font-family: 'Oxygen';
-    src: url("/static/fonts/Oxygen-Regular.ttf");
 }
 
 body {

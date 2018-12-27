@@ -49,7 +49,8 @@ export default Vue.extend({
         yMargin: {type: Number, required: true},
         depthOffset: {type: Number, required: true},
         textOffset: {type: Number, required: true},
-        breadth: {type: Number, required: true}
+        breadth: {type: Number, required: true},
+        textContentTemplate: {type: String, required: true}
     },
     components: {GraphNode},
     data() {
