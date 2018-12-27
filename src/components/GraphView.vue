@@ -38,6 +38,7 @@ import {mapGetters} from 'vuex';
 import Draggable from 'gsap/Draggable';
 import * as log from 'loglevel';
 import taxonomyFunctions from '../taxonomy-functions';
+import Mustache from 'mustache';
 
 export default Vue.extend({
     props: {
@@ -53,6 +54,7 @@ export default Vue.extend({
     components: {GraphNode},
     data() {
         return {
+            textContentTemplate: "{{content}} [{{taxon}}]"
         };
     },
     watch: {
@@ -136,7 +138,7 @@ export default Vue.extend({
             }
         },
         getNodeTextContent(d: GVNode) {
-            return `${d.data.content} [${d.data.taxon}]`;
+            return Mustache.render(this.textContentTemplate, d.data);
         },
     },
     computed: {
