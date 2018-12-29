@@ -47,10 +47,11 @@ export interface NodeFillMap {
 
 
 
-export interface GraphNode {
-    id: any;
-    children?: GraphNode[],
-    taxon: any;
+export interface TokenTreeNode {
+    id: number;
+    children?: TokenTreeNode[],
+    content: string;
+    label: string;
 }
 
 export interface GraphViewState {

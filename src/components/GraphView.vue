@@ -1,3 +1,4 @@
+
 <template>
     <g :transform="rootTranslation">
       <!-- The group for nodes and their associated labels -->
@@ -25,24 +26,27 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import GraphNode from './GraphNode.vue';
 import * as d3 from 'd3';
+import {SimulationNodeDatum} from 'd3-force';
 import layoutFunctions from '../layout-functions';
 import bus from '../event-bus';
 import events from '../events';
 import axios from 'axios';
-import { PolarPoint, CartesianPoint, GVNode } from '../interfaces';
+import { PolarPoint, CartesianPoint, GVNode, TokenTreeNode } from '../interfaces';
+import GraphNode from './GraphNode.vue';
 import {sprintf} from 'sprintf-js';
 import mc from '../mutation-constants';
 import {mapGetters} from 'vuex';
 import Draggable from 'gsap/Draggable';
 import * as log from 'loglevel';
-import taxonomyFunctions from '../taxonomy-functions';
 import Mustache from 'mustache';
 
 export default Vue.extend({
     props: {
-        graphData: {required: true},
+        graphData: {
+            required: true,
+            type: Object as () => TokenTreeNode
+        },
         width: {type: Number, required: true},
         height: {type: Number, required: true},
         xMargin: {type: Number, required: true},
@@ -55,8 +59,24 @@ export default Vue.extend({
     components: {GraphNode},
     data() {
         return {
-            textContentTemplate: "{{content}} [{{taxon}}]"
         };
+    },
+    created() {
+        // XXX: Not type checking yet
+        // const obj1 = {
+        //     x: 100,
+        //     y: 100
+        // };
+        // const obj2 = {
+        //     x: 100,
+        //     y: 100
+        // };
+
+        // const nodes = [obj1, obj2];
+
+        // const simulation = d3.forceSimulation();
+        // simulation.nodes(this.graphData as SimulationNodeDatum);
+        // simulation.force('collide', d3.forceCollide(30));
     },
     watch: {
         graphData(newData, oldData) {
@@ -160,36 +180,7 @@ export default Vue.extend({
             }
         },
         filteredDescendants: function (this: any) {
-            return this.root.descendants().filter((d: any) => {
-                console.log("taxo-model is %o", this.taxonomyModel);
-
-                const wantedParentName = 'Ulmaridae';
-
-                const wantedParent = taxonomyFunctions.getNodeForCategoryName(
-                    this.taxonomyModel, wantedParentName
-                );
-
-                try {
-                    const child = taxonomyFunctions.getNodeForCategoryName(
-                        this.taxonomyModel, d.data.taxon
-                    );
-
-                    console.log("wantedParent is %o", wantedParent);
-                    console.log("child is %o", child);
-
-                    const descVal = taxonomyFunctions.isDescendant(
-                        wantedParent, child
-                    );
-
-                    console.log("desc val = %o", descVal);
-
-                    return descVal;
-                } catch (e) {
-                    // Not really sure what to do in this case.
-                    log.warn(e);
-                    return true;
-                }
-            });
+            return this.root.descendants();
         },
         rootTranslation: function(this: any) {
             const xOffset = (this.width / 2) + this.xMargin;
