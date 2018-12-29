@@ -2,7 +2,7 @@
   "name": "occubrow-graph-view",
   "main": "dist/occubrow-graph-view.umd",
   "typings": "src/library-entry.d.ts",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",

@@ -39,7 +39,6 @@ import mc from '../mutation-constants';
 import {mapGetters} from 'vuex';
 import Draggable from 'gsap/Draggable';
 import * as log from 'loglevel';
-import taxonomyFunctions from '../taxonomy-functions';
 import Mustache from 'mustache';
 
 export default Vue.extend({
@@ -60,7 +59,6 @@ export default Vue.extend({
     components: {GraphNode},
     data() {
         return {
-            textContentTemplate: "{{content}} [{{taxon}}]"
         };
     },
     created() {
@@ -182,36 +180,7 @@ export default Vue.extend({
             }
         },
         filteredDescendants: function (this: any) {
-            return this.root.descendants().filter((d: any) => {
-                console.log("taxo-model is %o", this.taxonomyModel);
-
-                const wantedParentName = 'Ulmaridae';
-
-                const wantedParent = taxonomyFunctions.getNodeForCategoryName(
-                    this.taxonomyModel, wantedParentName
-                );
-
-                try {
-                    const child = taxonomyFunctions.getNodeForCategoryName(
-                        this.taxonomyModel, d.data.taxon
-                    );
-
-                    console.log("wantedParent is %o", wantedParent);
-                    console.log("child is %o", child);
-
-                    const descVal = taxonomyFunctions.isDescendant(
-                        wantedParent, child
-                    );
-
-                    console.log("desc val = %o", descVal);
-
-                    return descVal;
-                } catch (e) {
-                    // Not really sure what to do in this case.
-                    log.warn(e);
-                    return true;
-                }
-            });
+            return this.root.descendants();
         },
         rootTranslation: function(this: any) {
             const xOffset = (this.width / 2) + this.xMargin;
