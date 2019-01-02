@@ -59,8 +59,7 @@ export interface GraphViewState {
     selectedRoot: string,
     widgetDropTargets: Element[],
     nodeDropTargets: Vue[],
-    nodeFill: NodeFillMap,
-    taxonomyModel: CategoryNode | null,    // null if uninitialized
+    nodeFill: NodeFillMap
 }
 
 export interface RootState {

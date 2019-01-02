@@ -31,7 +31,7 @@ import TreeModel from 'tree-model';
 import mc from './mutation-constants';
 import axios from 'axios';
 
-const STATIC_TAXONOMY_DATA = {"_type":"Taxon","children":[{"_type":"Taxon","children":[{"_type":"Taxon","id":63754,"name":"Deepstaria enigmatica"},{"_type":"Taxon","id":63759,"name":"Deepstaria reticulum"}],"id":63752,"name":"Deepstaria"},{"_type":"Taxon","children":[{"_type":"Taxon","id":63760,"name":"Aurelia labiata"},{"_type":"Taxon","id":63761,"name":"Aurelia aurita"}],"id":63753,"name":"Aurelia"}],"id":63751,"name":"Ulmaridae"}
+
 
 const FAKE_API_DATA = {
     "children": [
@@ -106,10 +106,6 @@ export default Vue.extend({
             childrenPropertyName: 'children',
             // you can also use modelcomparatorfn here to auto sort the tree
         };
-
-        const apiTree = new TreeModel(treeModelConfig);
-        const apiRoot = apiTree.parse(STATIC_TAXONOMY_DATA as any);
-        this.$store.commit(mc.SET_TAXONOMY_MODEL, apiRoot);
         this.$store.commit(mc.SELECT_ROOT, 'keep');
         this.updateFromBackend();
     },

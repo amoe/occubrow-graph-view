@@ -202,7 +202,7 @@ export default Vue.extend({
         },
         widgetDropTargets: function(this: any) {
             return this.$store.getters.widgetDropTargets;
-        }, ...mapGetters(['possibleRoots', 'selectedRoot', 'taxonomyModel'])
+        }, ...mapGetters(['possibleRoots', 'selectedRoot'])
     }
 });
 </script>

@@ -15,12 +15,8 @@ const graphView: Module<GraphViewState, RootState> = {
         widgetDropTargets: [],
         nodeDropTargets: [],
         nodeFill: {},
-        taxonomyModel: null
     },
     mutations: {
-        [mc.SET_TAXONOMY_MODEL]: (state, taxonomyModel) => {
-            state.taxonomyModel = taxonomyModel;
-        },
         [mc.SET_HOVERED_NODE_INDICES]: (state, hovered: number[]) => {
             state.nodeFill = {};
 
@@ -54,9 +50,6 @@ const graphView: Module<GraphViewState, RootState> = {
         nodeFill(state, getters) {
             return state.nodeFill;
         },
-        taxonomyModel(state, getters) {
-            return state.taxonomyModel;
-        }
     },
     actions
 };
