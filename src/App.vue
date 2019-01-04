@@ -2,6 +2,8 @@
 <div class="page">
   <h1>GRAPH-VIEW -- DEMO PAGE</h1>
 
+  <div class="box" v-bind:style="boxStyles"></div>
+
   <div class="graph">
     <svg id="svg-frame" :width="width" :height="height">
       <graph-view :width="width"
@@ -30,7 +32,7 @@ import * as log from 'loglevel';
 import TreeModel from 'tree-model';
 import mc from './mutation-constants';
 import axios from 'axios';
-
+import shading from '@/shading';
 
 
 const FAKE_API_DATA = {
@@ -91,27 +93,24 @@ export default Vue.extend({
             textOffset: 22,   // depends on circle radius
             breadth: 360,
             zoomDepth: 2,
-            myGraphData: null
+            myGraphData: null as any
         };
-    },
-    methods: {
-        updateFromBackend(this: any) {
-            this.myGraphData = FAKE_API_DATA;
-        }
     },
     created: function() {
-        // XXX: Load up a hard coded taxonomy so that we don't break other bits
-        // of code.
         const treeModelConfig = {
             childrenPropertyName: 'children',
-            // you can also use modelcomparatorfn here to auto sort the tree
         };
         this.$store.commit(mc.SELECT_ROOT, 'keep');
-        this.updateFromBackend();
+        this.myGraphData = FAKE_API_DATA;
     },
     // mapState doesn't work with typescript: "Property 'mapState' does not exist on type"
     // So we manually create the relevant computed properties.
     computed: {
+        boxStyles(): object {
+            return {
+                'background-color': shading.getColor(360, 100, 50, 1.0)
+            };
+        },
         yMarginPx: function (this: any) {
             return document.documentElement.clientHeight * this.yMarginVh;
         },
@@ -177,4 +176,9 @@ div.timeline {
     z-index: -1;
 }
 
+
+div.box {
+    width: 150px;
+    height: 150px;
+}
 </style>
