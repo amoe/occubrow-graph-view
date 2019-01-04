@@ -49,7 +49,6 @@ export default Vue.extend({
             cx: 0,
             cy: 0,
             ghostOpacity: 0.0,
-            isPointerEventsEnabled: true,
             ghostRadius: 16,
             hoverTimeout: null as (number | null)
         };
@@ -76,22 +75,21 @@ export default Vue.extend({
                     // For all of these any-annotated functions below, the type is actually
                     // GraphNode.  But I'm worried that it's going to be impossible to
                     // refer to the GraphNode type from within itself.
+
                     const withoutMe = instance.nodeDropTargets.filter(
                         function (n: any) {
                             return n.index !== instance.index;
                         }
                     );
 
-
                     const targetsHit = withoutMe.filter((n: any) => {
-                       this.hitTest(n.getGhostNodeCircle())
+                       return this.hitTest(n.getGhostNodeCircle())
                     });
 
                     const hoveredIndices: number[] = targetsHit.map(
                         function (n: any) { return n.index; }
                     );
 
-                    log.debug("hovered indices are %o", hoveredIndices);
 
                     instance.$store.commit(mc.SET_HOVERED_NODE_INDICES, hoveredIndices);
                 },
