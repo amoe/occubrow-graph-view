@@ -9,6 +9,7 @@
       <graph-node v-for="(node, index) in allIncludingRoot"
                   ref="nodes"
                   :key="index"
+                  :node="node"
                   :index="index"
                   :group-class="getNodeGroupClass(node)"
                   :group-transform="getNodeGroupTransformation(node)"

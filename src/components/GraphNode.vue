@@ -39,9 +39,11 @@ import TweenLite from 'gsap/TweenLite';
 import constants from '../constants';
 import * as log from 'loglevel';
 import shading from '@/shading';
+import {GVNode} from '@/interfaces';
 
 export default Vue.extend({
     props: {
+        node: {type: Object as () => GVNode, required: true},
         textTransform: {type: String, required: true},
         textAnchor: {type: String, required: true},
         textXOffset: {type: Number, required: true},
@@ -60,6 +62,7 @@ export default Vue.extend({
         };
     },
     created() {
+        console.log("node is %o", this.node);
         bus.$on(events.DRAG_OPERATION_STARTED, () => this.globalDragStartHandler());
     },
     mounted() {
@@ -139,7 +142,7 @@ export default Vue.extend({
         getGhostNodeCircle(): HTMLElement {
             return this.$refs.ghostNodeSvgCircle as HTMLElement;
         },
-        handleMouseover(e: Event) {
+        handleMouseover(e: Event): void {
              this.hoverTimeout = window.setTimeout(
                  function() {
                      console.log("hover event");

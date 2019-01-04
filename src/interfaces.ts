@@ -32,9 +32,12 @@ interface CategoryNodeModel {
 export type CategoryNode = Node<CategoryNodeModel>
 
 
+// Representing a tree node that's been processed by d3's cluster layout.
 export interface GVNode {
     x: number;
     y: number;
+    depth: number;
+    height: number;
     parent: GVNode | null;
     data: any;
     children: GVNode[];
@@ -43,8 +46,6 @@ export interface GVNode {
 export interface NodeFillMap {
     [key: number]: string;
 }
-
-
 
 
 export interface TokenTreeNode {
