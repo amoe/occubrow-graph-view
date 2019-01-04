@@ -74,7 +74,16 @@ const graphView: Module<GraphViewState, RootState> = {
             return treeModel.parse<TokenDatum>(state.graphData);
         },
         maximumStrength(state, getters): number {
-            return 0;
+            const tree = getters.graphTree;
+            var maxSoFar = Number.NEGATIVE_INFINITY;
+
+            tree.walk((n: TokenNode) => {
+                if (n.model.strength > maxSoFar) {
+                    maxSoFar = n.model.strength;
+                }
+            });
+
+            return maxSoFar;
         }
     },
     actions

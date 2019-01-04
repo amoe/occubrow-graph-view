@@ -139,8 +139,15 @@ export default Vue.extend({
     methods: {
         getNodeFill(): string {
             const strength = this.node.data.strength;
-            log.info("node strength was %o", strength);
-            return this.nodeFill[this.index] || this.defaultColor;
+            const maximumStrength = this.maximumStrength;
+            const proportion = (strength / maximumStrength) * 100;
+
+            const hue = 180;   // blueish
+
+            const shadedColor = shading.hsla(180, proportion, 50, 1.0);
+            console.log("shaded color is %o", shadedColor);
+
+            return this.nodeFill[this.index] || shadedColor || this.defaultColor;
         },
         globalDragStartHandler() {
             log.debug("registered start of drag");
@@ -189,4 +196,3 @@ export default Vue.extend({
 <style>
 /* No styling yet */
 </style>
-

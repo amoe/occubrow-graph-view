@@ -2,8 +2,6 @@
 <div class="page">
   <h1>GRAPH-VIEW -- DEMO PAGE</h1>
 
-  <div class="box" v-bind:style="boxStyles"></div>
-
   <div class="graph">
     <svg id="svg-frame" :width="width" :height="height">
       <graph-view :width="width"
@@ -177,11 +175,5 @@ div.timeline {
     /* It's gotta have such a z-index, otherwise it will block HTML items from
        being interacted with. */
     z-index: -1;
-}
-
-
-div.box {
-    width: 150px;
-    height: 150px;
 }
 </style>
