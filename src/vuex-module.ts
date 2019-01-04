@@ -83,6 +83,10 @@ const graphView: Module<GraphViewState, RootState> = {
                 }
             });
 
+            if (maxSoFar === Number.NEGATIVE_INFINITY) {
+                throw new Error('no strengths found, check data');
+            }
+
             return maxSoFar;
         }
     },
