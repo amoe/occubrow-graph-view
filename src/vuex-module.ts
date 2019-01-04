@@ -2,7 +2,7 @@ import Vue from 'vue';
 import mc from './mutation-constants';
 import { StoreOptions, Module } from 'vuex';
 import actions from './actions';
-import { GraphViewState, RootState } from './interfaces';
+import { GraphViewState, RootState, NodeFillMap } from './interfaces';
 
 
 const graphView: Module<GraphViewState, RootState> = {
@@ -47,7 +47,7 @@ const graphView: Module<GraphViewState, RootState> = {
         nodeDropTargets(state, getters): Vue[] {
             return state.nodeDropTargets;
         },
-        nodeFill(state, getters) {
+        nodeFill(state, getters): NodeFillMap {
             return state.nodeFill;
         },
     },

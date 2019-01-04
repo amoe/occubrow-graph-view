@@ -42,39 +42,46 @@ const FAKE_API_DATA = {
                 {
                     "content": "peace",
                     "id": 63765,
-                    "label": "Token"
+                    "label": "Token",
+                    "strength": 2,
                 },
                 {
                     "content": "books",
                     "id": 63767,
-                    "label": "Token"
+                    "label": "Token",
+                    "strength": 1,
                 }
             ],
             "content": "the",
             "id": 63764,
-            "label": "Token"
+            "label": "Token",
+            "strength": 1,
         },
         {
             "children": [
                 {
                     "content": "shop",
                     "id": 63732,
-                    "label": "Token"
+                    "label": "Token",
+                    "strength": 1,
                 },
                 {
                     "content": "bar",
                     "id": 63782,
-                    "label": "Token"
+                    "label": "Token",
+                    "strength": 1,
                 }
             ],
             "content": "a",
             "id": 63774,
-            "label": "Token"
+            "label": "Token",
+            "strength": 1,
         }
     ],
     "content": "keep",
     "id": 63762,
-    "label": "Token"
+    "label": "Token",
+    "strength": 1,
 };
 
 

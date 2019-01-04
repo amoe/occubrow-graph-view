@@ -4,7 +4,7 @@
        of the containing Vue component. -->
     <circle class="real-node"
             r="16"
-            :fill="nodeFill[index] || defaultColor"
+            :fill="getNodeFill()"
             ref="realNodeSvgCircle"/>
 
     <!-- The ghost node has to handle all of the events, because it's always
@@ -39,7 +39,7 @@ import TweenLite from 'gsap/TweenLite';
 import constants from '../constants';
 import * as log from 'loglevel';
 import shading from '@/shading';
-import {GVNode} from '@/interfaces';
+import { GVNode, NodeFillMap } from '@/interfaces';
 
 export default Vue.extend({
     props: {
@@ -62,7 +62,6 @@ export default Vue.extend({
         };
     },
     created() {
-        console.log("node is %o", this.node);
         bus.$on(events.DRAG_OPERATION_STARTED, () => this.globalDragStartHandler());
     },
     mounted() {
@@ -136,6 +135,9 @@ export default Vue.extend({
         })
     },
     methods: {
+        getNodeFill(): string {
+            return this.nodeFill[this.index] || this.defaultColor;
+        },
         globalDragStartHandler() {
             log.debug("registered start of drag");
         },
@@ -157,6 +159,9 @@ export default Vue.extend({
         },
     },
     computed: {
+        nodeFill(): NodeFillMap {
+            return this.$store.getters.nodeFill;
+        },
         defaultColor(): string {
             return shading.hsla(220, 3, 19, 1.0);
         },
@@ -169,7 +174,7 @@ export default Vue.extend({
         },
         nodeDropTargets: function(this: any) {
             return this.$store.getters.nodeDropTargets;
-        }, ... mapGetters(['nodeFill'])
+        }, ...mapGetters(['nodeFill'])
     }
 });
 </script>

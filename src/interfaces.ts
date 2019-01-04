@@ -31,6 +31,15 @@ interface CategoryNodeModel {
 
 export type CategoryNode = Node<CategoryNodeModel>
 
+// This is the 'domain-specific' part of the graph node.  At the moment, these
+// match node properties that are given by the backend.
+export interface TokenDatum {
+    content: string;
+    id: number;
+    label: string;
+    strength: number;
+}
+
 
 // Representing a tree node that's been processed by d3's cluster layout.
 export interface GVNode {
@@ -39,7 +48,7 @@ export interface GVNode {
     depth: number;
     height: number;
     parent: GVNode | null;
-    data: any;
+    data: TokenDatum;
     children: GVNode[];
 }
 

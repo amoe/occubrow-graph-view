@@ -4,7 +4,7 @@ import router from './router';
 import store from './store';
 import * as log from 'loglevel';
 
-log.setLevel(log.levels.DEBUG);
+log.setLevel(log.levels.INFO);
 
 require('typeface-oxygen');
 
