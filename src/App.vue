@@ -108,7 +108,7 @@ export default Vue.extend({
     computed: {
         boxStyles(): object {
             return {
-                'background-color': shading.getColor(360, 100, 50, 1.0)
+                'background-color': shading.hsla(360, 100, 50, 1.0)
             };
         },
         yMarginPx: function (this: any) {

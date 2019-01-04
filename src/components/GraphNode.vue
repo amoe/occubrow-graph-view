@@ -4,7 +4,7 @@
        of the containing Vue component. -->
     <circle class="real-node"
             r="16"
-            :fill="nodeFill[index] || '#303133'"
+            :fill="nodeFill[index] || defaultColor"
             ref="realNodeSvgCircle"/>
 
     <!-- The ghost node has to handle all of the events, because it's always
@@ -38,12 +38,18 @@ import Draggable from 'gsap/Draggable';
 import TweenLite from 'gsap/TweenLite';
 import constants from '../constants';
 import * as log from 'loglevel';
+import shading from '@/shading';
 
 export default Vue.extend({
-    props: [
-        'source', 'text-transform', 'text-anchor', 'text-x-offset', 'text-content',
-        'group-transform', 'group-class', 'index'
-    ],
+    props: {
+        textTransform: {type: String, required: true},
+        textAnchor: {type: String, required: true},
+        textXOffset: {type: Number, required: true},
+        textContent: {type: String, required: true},
+        groupTransform: {type: String, required: true},
+        groupClass: {type: String, required: true},
+        index: {type: Number, required: true},
+    },
     data() {
         return {
             cx: 0,
@@ -148,6 +154,9 @@ export default Vue.extend({
         },
     },
     computed: {
+        defaultColor(): string {
+            return shading.hsla(220, 3, 19, 1.0);
+        },
         // Just a utility method to convert between the units.
         ghostRadiusPx(this: any) {
             return this.ghostRadius;
