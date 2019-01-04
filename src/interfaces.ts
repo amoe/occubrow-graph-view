@@ -53,7 +53,8 @@ export interface GVNode {
 }
 
 
-// This is the format 
+// This is the format that the package user provides the data in.  It's 
+// identical to the networkx `tree_data` format.
 export interface TokenTreeNode extends TokenDatum {
     children?: TokenTreeNode[],
 }
@@ -64,7 +65,7 @@ export interface GraphViewState {
     widgetDropTargets: Element[],
     nodeDropTargets: Vue[],
     nodeFill: NodeFillMap,
-    graphData: TokenTreeNode | null
+    graphData: TokenTreeNode,
 }
 
 export interface RootState {
@@ -74,3 +75,5 @@ export interface NodeFillMap {
     [key: number]: string;
 }
 
+// This is an augmented data format provided by js-tree-model library.
+export type TokenNode = Node<TokenDatum>

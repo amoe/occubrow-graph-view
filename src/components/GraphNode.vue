@@ -63,6 +63,8 @@ export default Vue.extend({
     },
     created() {
         bus.$on(events.DRAG_OPERATION_STARTED, () => this.globalDragStartHandler());
+
+        console.log("maximum strength is %o", this.maximumStrength);
     },
     mounted() {
         const instance = this;
@@ -164,6 +166,9 @@ export default Vue.extend({
         nodeFill(): NodeFillMap {
             return this.$store.getters.nodeFill;
         },
+        maximumStrength(): number {
+            return this.$store.getters.maximumStrength;
+        },
         defaultColor(): string {
             return shading.hsla(220, 3, 19, 1.0);
         },
@@ -176,7 +181,7 @@ export default Vue.extend({
         },
         nodeDropTargets: function(this: any) {
             return this.$store.getters.nodeDropTargets;
-        }, ...mapGetters(['nodeFill'])
+        }, ...mapGetters(['nodeFill', 'maximumStrength'])
     }
 });
 </script>

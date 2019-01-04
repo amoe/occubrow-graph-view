@@ -59,10 +59,13 @@ export default Vue.extend({
     components: {GraphNode},
     data() {
         return {
+            initialized: false
         };
     },
     created() {
         this.$store.commit(mc.SAVE_GRAPH_DATA, this.graphData);
+        this.initialized = true;
+        console.log("graph tree is %o", this.graphTree);
     },
     mounted() {
         this.saveNodes();
@@ -153,6 +156,9 @@ export default Vue.extend({
         },
     },
     computed: {
+        graphTree() {
+            return this.$store.getters.graphTree;
+        },
         allButRoot: function(this: any) {
             if (this.root === null) {
                 return [];
@@ -179,8 +185,6 @@ export default Vue.extend({
             return "translate(" + xOffset + "," + yOffset + ")";
         },
         root: function(this: any) {
-            if (this.graphDataFromStore === null)  return null;
-
             const depth = (this.width / 2) - this.depthOffset;    // This is a radius
 
             const cluster = d3.cluster().size([this.breadth, depth]);

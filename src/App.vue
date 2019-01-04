@@ -33,7 +33,7 @@ import TreeModel from 'tree-model';
 import mc from './mutation-constants';
 import axios from 'axios';
 import shading from '@/shading';
-
+import {TokenTreeNode} from '@/interfaces';
 
 const FAKE_API_DATA = {
     "children": [
@@ -100,15 +100,11 @@ export default Vue.extend({
             textOffset: 22,   // depends on circle radius
             breadth: 360,
             zoomDepth: 2,
-            myGraphData: null as any
+            myGraphData: FAKE_API_DATA as TokenTreeNode
         };
     },
     created: function() {
-        const treeModelConfig = {
-            childrenPropertyName: 'children',
-        };
         this.$store.commit(mc.SELECT_ROOT, 'keep');
-        this.myGraphData = FAKE_API_DATA;
     },
     // mapState doesn't work with typescript: "Property 'mapState' does not exist on type"
     // So we manually create the relevant computed properties.
