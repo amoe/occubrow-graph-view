@@ -136,6 +136,8 @@ export default Vue.extend({
     },
     methods: {
         getNodeFill(): string {
+            const strength = this.node.data.strength;
+            log.info("node strength was %o", strength);
             return this.nodeFill[this.index] || this.defaultColor;
         },
         globalDragStartHandler() {

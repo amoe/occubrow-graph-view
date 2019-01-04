@@ -1,4 +1,3 @@
-
 <template>
     <g :transform="rootTranslation">
       <!-- The group for nodes and their associated labels -->
@@ -63,13 +62,15 @@ export default Vue.extend({
         };
     },
     created() {
+        this.$store.commit(mc.SAVE_GRAPH_DATA, this.graphData);
     },
     mounted() {
         this.saveNodes();
     },
     watch: {
-        graphData(newData, oldData) {
+        graphData(newData: TokenTreeNode, oldData: TokenTreeNode) {
             console.log("GraphView: inside graph data watcher");
+            this.$store.commit(mc.SAVE_GRAPH_DATA, newData);
             this.$nextTick(() => this.saveNodes());
         }
     },
@@ -178,20 +179,20 @@ export default Vue.extend({
             return "translate(" + xOffset + "," + yOffset + ")";
         },
         root: function(this: any) {
-            if (this.graphData === null)  return null;
+            if (this.graphDataFromStore === null)  return null;
 
             const depth = (this.width / 2) - this.depthOffset;    // This is a radius
 
             const cluster = d3.cluster().size([this.breadth, depth]);
 
             // This is another option
-            let root = d3.hierarchy(this.graphData, d => d.children);
+            let root = d3.hierarchy(this.graphDataFromStore, d => d.children);
 
             return cluster(root);
         },
         widgetDropTargets: function(this: any) {
             return this.$store.getters.widgetDropTargets;
-        }, ...mapGetters(['possibleRoots', 'selectedRoot'])
+        }, ...mapGetters(['possibleRoots', 'selectedRoot', 'graphDataFromStore'])
     }
 });
 </script>

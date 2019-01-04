@@ -3,4 +3,5 @@ export default {
     SET_HOVERED_NODE_INDICES: 'setHoveredNodeIndices',
     SET_POSSIBLE_ROOTS: 'setPossibleRoots',
     SELECT_ROOT: 'selectRoot',
+    SAVE_GRAPH_DATA: 'saveGraphData'
 };

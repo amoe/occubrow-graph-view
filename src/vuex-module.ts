@@ -2,7 +2,7 @@ import Vue from 'vue';
 import mc from './mutation-constants';
 import { StoreOptions, Module } from 'vuex';
 import actions from './actions';
-import { GraphViewState, RootState, NodeFillMap } from './interfaces';
+import { GraphViewState, RootState, NodeFillMap, TokenTreeNode } from './interfaces';
 
 
 const graphView: Module<GraphViewState, RootState> = {
@@ -15,6 +15,7 @@ const graphView: Module<GraphViewState, RootState> = {
         widgetDropTargets: [],
         nodeDropTargets: [],
         nodeFill: {},
+        graphData: null
     },
     mutations: {
         [mc.SET_HOVERED_NODE_INDICES]: (state, hovered: number[]) => {
@@ -32,7 +33,10 @@ const graphView: Module<GraphViewState, RootState> = {
         },
         [mc.SELECT_ROOT]: (state, newRoot) => {
             state.selectedRoot = newRoot;
-        }
+        },
+        [mc.SAVE_GRAPH_DATA]: (state, graphData: TokenTreeNode) => {
+            state.graphData = graphData;
+        },
     },
     getters: {
         possibleRoots(state, getters) {
@@ -50,6 +54,9 @@ const graphView: Module<GraphViewState, RootState> = {
         nodeFill(state, getters): NodeFillMap {
             return state.nodeFill;
         },
+        graphDataFromStore(state, getters): TokenTreeNode | null {
+            return state.graphData;
+        }
     },
     actions
 };

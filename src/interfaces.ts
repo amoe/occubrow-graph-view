@@ -52,16 +52,10 @@ export interface GVNode {
     children: GVNode[];
 }
 
-export interface NodeFillMap {
-    [key: number]: string;
-}
 
-
-export interface TokenTreeNode {
-    id: number;
+// This is the format 
+export interface TokenTreeNode extends TokenDatum {
     children?: TokenTreeNode[],
-    content: string;
-    label: string;
 }
 
 export interface GraphViewState {
@@ -69,8 +63,14 @@ export interface GraphViewState {
     selectedRoot: string,
     widgetDropTargets: Element[],
     nodeDropTargets: Vue[],
-    nodeFill: NodeFillMap
+    nodeFill: NodeFillMap,
+    graphData: TokenTreeNode | null
 }
 
 export interface RootState {
 }
+
+export interface NodeFillMap {
+    [key: number]: string;
+}
+
