@@ -63,6 +63,9 @@ export default Vue.extend({
     },
     created() {
     },
+    mounted() {
+        this.saveNodes();
+    },
     watch: {
         graphData(newData, oldData) {
             console.log("GraphView: inside graph data watcher");
@@ -71,8 +74,8 @@ export default Vue.extend({
     },
     methods: {
         saveNodes() {
-            console.log("saving nodes");
-            console.log("node set was found as %o", this.$refs.nodes);
+            log.debug("saving nodes");
+            log.debug("node set was found as %o", this.$refs.nodes);
             this.$store.commit(mc.SET_NODE_DND_TARGETS, this.$refs.nodes);
         },
         getTextRotation(node: GVNode) {

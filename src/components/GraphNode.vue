@@ -63,7 +63,7 @@ export default Vue.extend({
         this.$nextTick(function() {
             const ghostCircle = instance.getGhostNodeCircle();
 
-            log.trace("inside circle node callback");
+            log.debug("inside circle node callback");
 
             const vars = {
                 onDragStart: function(this: any) {
@@ -74,25 +74,24 @@ export default Vue.extend({
                 },
                 onDrag: function(this: any) {
                     // For all of these any-annotated functions below, the type is actually
-                    // GraphNode.  But I'm worried that it's going to be impossible to refer
-                    // to the GraphNode type from within itself.
+                    // GraphNode.  But I'm worried that it's going to be impossible to
+                    // refer to the GraphNode type from within itself.
                     const withoutMe = instance.nodeDropTargets.filter(
                         function (n: any) {
                             return n.index !== instance.index;
                         }
                     );
 
-                    const targetsHit = withoutMe.filter(
-                        function (this: any, n: any) {
-                            return this.hitTest(n.getGhostNodeCircle());
-                        }
-                    );
+
+                    const targetsHit = withoutMe.filter((n: any) => {
+                       this.hitTest(n.getGhostNodeCircle())
+                    });
 
                     const hoveredIndices: number[] = targetsHit.map(
                         function (n: any) { return n.index; }
                     );
 
-                    log.trace("hovered indices are %o", hoveredIndices);
+                    log.debug("hovered indices are %o", hoveredIndices);
 
                     instance.$store.commit(mc.SET_HOVERED_NODE_INDICES, hoveredIndices);
                 },
@@ -126,12 +125,12 @@ export default Vue.extend({
 
 
             const result = Draggable.create(ghostCircle, vars);
-            log.trace("result of creating draggable was %o", result);
+            log.debug("result of creating draggable was %o", result);
         })
     },
     methods: {
         globalDragStartHandler() {
-            log.trace("registered start of drag");
+            log.debug("registered start of drag");
         },
         getGhostNodeCircle(): HTMLElement {
             return this.$refs.ghostNodeSvgCircle as HTMLElement;
