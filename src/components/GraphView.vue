@@ -62,21 +62,6 @@ export default Vue.extend({
         };
     },
     created() {
-        // XXX: Not type checking yet
-        // const obj1 = {
-        //     x: 100,
-        //     y: 100
-        // };
-        // const obj2 = {
-        //     x: 100,
-        //     y: 100
-        // };
-
-        // const nodes = [obj1, obj2];
-
-        // const simulation = d3.forceSimulation();
-        // simulation.nodes(this.graphData as SimulationNodeDatum);
-        // simulation.force('collide', d3.forceCollide(30));
     },
     watch: {
         graphData(newData, oldData) {
