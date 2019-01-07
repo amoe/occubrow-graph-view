@@ -26,7 +26,6 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import * as d3 from 'd3';
 import {SimulationNodeDatum} from 'd3-force';
 import layoutFunctions from '../layout-functions';
 import bus from '../event-bus';
@@ -40,6 +39,7 @@ import {mapGetters} from 'vuex';
 import Draggable from 'gsap/Draggable';
 import * as log from 'loglevel';
 import Mustache from 'mustache';
+import {hierarchy, cluster} from 'd3';
 
 export default Vue.extend({
     props: {
@@ -173,8 +173,8 @@ export default Vue.extend({
         },
         root: function(this: any) {
             const depth = (this.width / 2) - this.depthOffset;    // This is a radius
-            const clusterLayout = d3.cluster().size([this.breadth, depth]);
-            const theHierarchy = d3.hierarchy(this.graphDataFromStore, d => d.children);
+            const clusterLayout = cluster().size([this.breadth, depth]);
+            const theHierarchy = hierarchy(this.graphDataFromStore, d => d.children);
             clusterLayout(theHierarchy);
             return theHierarchy;
         },
