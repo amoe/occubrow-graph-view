@@ -65,7 +65,7 @@ export interface GraphViewState {
     widgetDropTargets: Element[],
     nodeDropTargets: Vue[],
     nodeFill: NodeFillMap,
-    graphData: TokenTreeNode,
+    graphData: TokenTreeNode
 }
 
 export interface RootState {

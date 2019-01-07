@@ -71,10 +71,16 @@ export default Vue.extend({
         this.saveNodes();
     },
     watch: {
+        // When the client user updates the graphData prop on their side, we'll
+        // save the change to Vuex.
         graphData(newData: TokenTreeNode, oldData: TokenTreeNode) {
-            console.log("GraphView: inside graph data watcher");
             this.$store.commit(mc.SAVE_GRAPH_DATA, newData);
             this.$nextTick(() => this.saveNodes());
+        },
+        // Then Vue will call this watcher on the computed property 'root',
+        // after reapplying the cluster layout to the new data.  At this point
+        // we know the final x and y positions of the new node set.
+        root(newData: HierarchyNode<TokenDatum>, oldData: HierarchyNode<TokenDatum>) {
         }
     },
     methods: {
@@ -177,6 +183,7 @@ export default Vue.extend({
         root(): HierarchyNode<TokenDatum> {
             const depth = (this.width / 2) - this.depthOffset;    // This is a radius
             const clusterLayout = cluster().size([this.breadth, depth]);
+
             const theHierarchy = hierarchy(this.graphDataFromStore, d => d.children);
             clusterLayout(theHierarchy);
             return theHierarchy;
