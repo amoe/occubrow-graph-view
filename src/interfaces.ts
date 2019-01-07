@@ -37,7 +37,7 @@ export interface TokenDatum {
     content: string;
     id: number;
     label: string;
-    strength: number;
+    strength: number | null;    // strength can be null on the root node
 }
 
 

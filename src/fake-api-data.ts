@@ -46,7 +46,7 @@ const FAKE_API_DATA_1: TokenTreeNode = {
     "content": "keep",
     "id": 63762,
     "label": "Token",
-    "strength": 1,
+    "strength": null,
 };
 
 
@@ -84,7 +84,7 @@ const FAKE_API_DATA_2: TokenTreeNode = {
     "content": "keep",
     "id": 5,
     "label": "Token",
-    "strength": 1,
+    "strength": null,
 };
 
 export { FAKE_API_DATA_1, FAKE_API_DATA_2 };

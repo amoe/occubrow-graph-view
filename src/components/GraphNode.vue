@@ -143,6 +143,12 @@ export default Vue.extend({
         },
         getNodeFill(): string {
             const strength = this.node.data.strength;
+
+
+            if (strength === null) {
+                return this.defaultColor;
+            }
+            
             const maximumStrength = this.maximumStrength;
             const proportion = (strength / maximumStrength) * 100;
 
