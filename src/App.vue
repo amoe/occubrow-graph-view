@@ -61,6 +61,7 @@ export default Vue.extend({
     },
     methods: {
         changeData(): void {
+            // Alternate between two sets of demo data
             console.log("changing data");
 
             if (this.state % 2 === 0) {
