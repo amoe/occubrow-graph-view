@@ -160,22 +160,9 @@ export default Vue.extend({
             return this.$store.getters.graphTree;
         },
         allButRoot: function(this: any) {
-            if (this.root === null) {
-                return [];
-            } else {
-                return this.filteredDescendants.slice(1);
-            }
+            return this.root.descendants().slice(1);
         },
         allIncludingRoot: function(this: any) {
-            if (this.root === null) {
-                return [];
-            } else {
-                const value = this.filteredDescendants;
-                log.debug("allincludingroot = %o", value);
-                return value;
-            }
-        },
-        filteredDescendants: function (this: any) {
             return this.root.descendants();
         },
         rootTranslation: function(this: any) {
@@ -186,13 +173,10 @@ export default Vue.extend({
         },
         root: function(this: any) {
             const depth = (this.width / 2) - this.depthOffset;    // This is a radius
-
-            const cluster = d3.cluster().size([this.breadth, depth]);
-
-            // This is another option
-            let root = d3.hierarchy(this.graphDataFromStore, d => d.children);
-
-            return cluster(root);
+            const clusterLayout = d3.cluster().size([this.breadth, depth]);
+            const theHierarchy = d3.hierarchy(this.graphDataFromStore, d => d.children);
+            clusterLayout(theHierarchy);
+            return theHierarchy;
         },
         widgetDropTargets: function(this: any) {
             return this.$store.getters.widgetDropTargets;
