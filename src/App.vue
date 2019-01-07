@@ -32,56 +32,7 @@ import mc from './mutation-constants';
 import axios from 'axios';
 import shading from '@/shading';
 import {TokenTreeNode} from '@/interfaces';
-
-const FAKE_API_DATA = {
-    "children": [
-        {
-            "children": [
-                {
-                    "content": "peace",
-                    "id": 63765,
-                    "label": "Token",
-                    "strength": 2,
-                },
-                {
-                    "content": "books",
-                    "id": 63767,
-                    "label": "Token",
-                    "strength": 1,
-                }
-            ],
-            "content": "the",
-            "id": 63764,
-            "label": "Token",
-            "strength": 1,
-        },
-        {
-            "children": [
-                {
-                    "content": "shop",
-                    "id": 63732,
-                    "label": "Token",
-                    "strength": 1,
-                },
-                {
-                    "content": "bar",
-                    "id": 63782,
-                    "label": "Token",
-                    "strength": 1,
-                }
-            ],
-            "content": "a",
-            "id": 63774,
-            "label": "Token",
-            "strength": 1,
-        }
-    ],
-    "content": "keep",
-    "id": 63762,
-    "label": "Token",
-    "strength": 1,
-};
-
+import {FAKE_API_DATA_1} from '@/fake-api-data';
 
 export default Vue.extend({
     components: {GraphView},
@@ -98,7 +49,7 @@ export default Vue.extend({
             textOffset: 22,   // depends on circle radius
             breadth: 360,
             zoomDepth: 2,
-            myGraphData: FAKE_API_DATA as TokenTreeNode
+            myGraphData: FAKE_API_DATA_1 as TokenTreeNode
         };
     },
     created: function() {
