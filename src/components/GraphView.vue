@@ -31,7 +31,7 @@ import layoutFunctions from '../layout-functions';
 import bus from '../event-bus';
 import events from '../events';
 import axios from 'axios';
-import { PolarPoint, CartesianPoint, GVNode, TokenTreeNode, TokenDatum } from '../interfaces';
+import { PolarPoint, CartesianPoint, GVNode, TokenTreeNode, TokenDatum, TokenNode } from '../interfaces';
 import GraphNode from './GraphNode.vue';
 import {sprintf} from 'sprintf-js';
 import mc from '../mutation-constants';
@@ -156,16 +156,16 @@ export default Vue.extend({
         },
     },
     computed: {
-        graphTree() {
+        graphTree(): TokenNode {
             return this.$store.getters.graphTree;
         },
-        allButRoot: function(this: any) {
+        allButRoot(): HierarchyNode<TokenDatum>[] {
             return this.root.descendants().slice(1);
         },
-        allIncludingRoot: function(this: any) {
+        allIncludingRoot(): HierarchyNode<TokenDatum>[] {
             return this.root.descendants();
         },
-        rootTranslation: function(this: any) {
+        rootTranslation(): string {
             const xOffset = (this.width / 2) + this.xMargin;
             const yOffset = (this.height / 2) + this.yMargin;
             
@@ -174,7 +174,7 @@ export default Vue.extend({
         graphDataFromStore(): TokenTreeNode {
             return this.$store.getters.graphDataFromStore;
         },
-        root: function(): HierarchyNode<TokenDatum> {
+        root(): HierarchyNode<TokenDatum> {
             const depth = (this.width / 2) - this.depthOffset;    // This is a radius
             const clusterLayout = cluster().size([this.breadth, depth]);
             const theHierarchy = hierarchy(this.graphDataFromStore, d => d.children);
