@@ -32,7 +32,7 @@ import mc from './mutation-constants';
 import axios from 'axios';
 import shading from '@/shading';
 import {TokenTreeNode} from '@/interfaces';
-import {FAKE_API_DATA_1} from '@/fake-api-data';
+import {FAKE_API_DATA_1, FAKE_API_DATA_2} from '@/fake-api-data';
 
 export default Vue.extend({
     components: {GraphView},
@@ -54,6 +54,15 @@ export default Vue.extend({
     },
     created: function() {
         this.$store.commit(mc.SELECT_ROOT, 'keep');
+    },
+    mounted() {
+        window.setTimeout(this.changeData, 1000);
+    },
+    methods: {
+        changeData(): void {
+            console.log("changing data");
+            this.myGraphData = FAKE_API_DATA_2;
+        }
     },
     // mapState doesn't work with typescript: "Property 'mapState' does not exist on type"
     // So we manually create the relevant computed properties.
