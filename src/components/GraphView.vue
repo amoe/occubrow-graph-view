@@ -5,7 +5,7 @@
            a group of computed properties derived from the state. -->
       <!-- We just do it in this d3-ish way as a first pass. -->
 
-      <graph-node v-for="(node, index) in allIncludingRoot"
+      <graph-node v-for="(node, index) in tweenedHierarchy.descendants()"
                   ref="nodes"
                   :key="index"
                   :node="node"
@@ -58,8 +58,15 @@ export default Vue.extend({
     },
     components: {GraphNode},
     data() {
+        // XXX: HACK remove duplication -- this is function operating over this.graphData
+        const depth = (this.width / 2) - this.depthOffset;
+        const clusterLayout = cluster().size([this.breadth, depth]);
+        const theHierarchy = hierarchy(this.graphData, d => d.children);
+        clusterLayout(theHierarchy);
+
         return {
-            initialized: false
+            initialized: false,
+            tweenedHierarchy: theHierarchy
         };
     },
     created() {
@@ -81,6 +88,14 @@ export default Vue.extend({
         // after reapplying the cluster layout to the new data.  At this point
         // we know the final x and y positions of the new node set.
         root(newData: HierarchyNode<TokenDatum>, oldData: HierarchyNode<TokenDatum>) {
+            // We need several things:
+            // The new cluster layout, as we will animate the values to those positions
+            // We'll store the tweened layout as concrete state on the component
+            // We need to identify the subset of nodes that are in both the old set and the new set.
+            // We know the position that we want from the new set.
+            // The old nodes should be tweened to the position spec.
+
+            
         }
     },
     methods: {
