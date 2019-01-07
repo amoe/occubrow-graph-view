@@ -49,19 +49,27 @@ export default Vue.extend({
             textOffset: 22,   // depends on circle radius
             breadth: 360,
             zoomDepth: 2,
-            myGraphData: FAKE_API_DATA_1 as TokenTreeNode
+            myGraphData: FAKE_API_DATA_1 as TokenTreeNode,
+            state: 0,
         };
     },
     created: function() {
         this.$store.commit(mc.SELECT_ROOT, 'keep');
     },
     mounted() {
-        window.setTimeout(this.changeData, 1000);
+        window.setInterval(this.changeData, 1000);
     },
     methods: {
         changeData(): void {
             console.log("changing data");
-            this.myGraphData = FAKE_API_DATA_2;
+
+            if (this.state % 2 === 0) {
+                this.myGraphData = FAKE_API_DATA_2;
+            } else {
+                this.myGraphData = FAKE_API_DATA_1;
+            }
+
+            this.state = this.state + 1;
         }
     },
     // mapState doesn't work with typescript: "Property 'mapState' does not exist on type"

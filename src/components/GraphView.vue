@@ -39,9 +39,14 @@ import {mapGetters} from 'vuex';
 import Draggable from 'gsap/Draggable';
 import * as log from 'loglevel';
 import Mustache from 'mustache';
-import {hierarchy, cluster, HierarchyNode} from 'd3';
-import {intersectionBy} from 'lodash';        
+import {hierarchy, cluster, HierarchyNode, HierarchyPointNode} from 'd3';
+import {intersectionBy, clone, cloneDeep} from 'lodash';        
+import {TweenLite} from 'gsap';
 
+interface TokenNodeIndex {
+    [key: string]: HierarchyPointNode<TokenDatum>
+}
+ 
 export default Vue.extend({
     props: {
         graphData: {
@@ -67,7 +72,7 @@ export default Vue.extend({
 
         return {
             initialized: false,
-            tweenedHierarchy: theHierarchy
+            tweenedHierarchy: theHierarchy as HierarchyPointNode<TokenDatum>
         };
     },
     created() {
@@ -88,20 +93,34 @@ export default Vue.extend({
         // Then Vue will call this watcher on the computed property 'root',
         // after reapplying the cluster layout to the new data.  At this point
         // we know the final x and y positions of the new node set.
-        root(newData: HierarchyNode<TokenDatum>, oldData: HierarchyNode<TokenDatum>) {
-            // We need several things:
-            // The new cluster layout, as we will animate the values to those positions
-            // We'll store the tweened layout as concrete state on the component
-            // We need to identify the subset of nodes that are in both the old set and the new set.
-            // We know the position that we want from the new set.
-            // The old nodes should be tweened to the position spec.
+        root(newData: HierarchyPointNode<TokenDatum>, oldData: HierarchyPointNode<TokenDatum>) {
+            // We need to know what nodes were in common with the old set
+            const oldNodeIndex = {} as TokenNodeIndex;
+            oldData.each(n => {
+                oldNodeIndex[n.data.content] = n;
+            });
 
-            const commonNodes = intersectionBy(
-                oldData.descendants(), newData.descendants(),
-                n => n.data.content
-            );
+            // Not really sure about the reference semantics of this
+            this.tweenedHierarchy = newData;
 
-            console.log("Common nodes are %o", commonNodes);
+            this.tweenedHierarchy.each((n: HierarchyPointNode<TokenDatum>) => {
+                const token = n.data.content;
+                
+                if (token in oldNodeIndex) {
+                    const targetX = n.x;
+                    const targetY = n.y;
+
+                    const oldNode = oldNodeIndex[token];
+
+                    // it won't update until the next tick, so don't worry!
+                    // synchronously move the old nodes back to their old positions
+                    n.x = oldNode.x;
+                    n.y = oldNode.y;
+
+                    // now set async tweens running to move them to their new positions
+                    TweenLite.to(n, 0.5, {x: targetX, y: targetY});
+                }
+            });
         }
     },
     methods: {
