@@ -31,7 +31,7 @@ import layoutFunctions from '../layout-functions';
 import bus from '../event-bus';
 import events from '../events';
 import axios from 'axios';
-import { PolarPoint, CartesianPoint, GVNode, TokenTreeNode } from '../interfaces';
+import { PolarPoint, CartesianPoint, GVNode, TokenTreeNode, TokenDatum } from '../interfaces';
 import GraphNode from './GraphNode.vue';
 import {sprintf} from 'sprintf-js';
 import mc from '../mutation-constants';
@@ -39,7 +39,7 @@ import {mapGetters} from 'vuex';
 import Draggable from 'gsap/Draggable';
 import * as log from 'loglevel';
 import Mustache from 'mustache';
-import {hierarchy, cluster} from 'd3';
+import {hierarchy, cluster, HierarchyNode} from 'd3';
 
 export default Vue.extend({
     props: {
@@ -171,16 +171,16 @@ export default Vue.extend({
             
             return "translate(" + xOffset + "," + yOffset + ")";
         },
-        root: function(this: any) {
+        graphDataFromStore(): TokenTreeNode {
+            return this.$store.getters.graphDataFromStore;
+        },
+        root: function(): HierarchyNode<TokenDatum> {
             const depth = (this.width / 2) - this.depthOffset;    // This is a radius
             const clusterLayout = cluster().size([this.breadth, depth]);
             const theHierarchy = hierarchy(this.graphDataFromStore, d => d.children);
             clusterLayout(theHierarchy);
             return theHierarchy;
-        },
-        widgetDropTargets: function(this: any) {
-            return this.$store.getters.widgetDropTargets;
-        }, ...mapGetters(['possibleRoots', 'selectedRoot', 'graphDataFromStore'])
+        }, ...mapGetters(['possibleRoots', 'selectedRoot'])
     }
 });
 </script>
