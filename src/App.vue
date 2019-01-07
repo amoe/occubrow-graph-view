@@ -12,7 +12,8 @@
                   :text-offset="textOffset"
                   :breadth="breadth"
                   :text-content-template="textContentTemplate"
-                  :graphData="myGraphData"></graph-view>
+                  :graphData="myGraphData"
+                  v-on:node-clicked="handleNodeClicked"></graph-view>
     </svg>
   </div>
 </div>
@@ -57,9 +58,12 @@ export default Vue.extend({
         this.$store.commit(mc.SELECT_ROOT, 'keep');
     },
     mounted() {
-        window.setInterval(this.changeData, 1000);
+//        window.setInterval(this.changeData, 1000);
     },
     methods: {
+        handleNodeClicked(): void {
+            console.log("node was clicked");
+        },
         changeData(): void {
             // Alternate between two sets of demo data
             console.log("changing data");

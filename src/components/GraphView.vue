@@ -15,8 +15,9 @@
                   :text-transform="getTextRotation(node)"
                   :text-anchor="getTextAnchor(node)"
                   :text-x-offset="getTextXOffset(node)"
-                  :text-content="getNodeTextContent(node)">
+                  :text-content="getNodeTextContent(node)">                  >
       </graph-node>
+
 
       <path v-for="node in allButRoot"
             class="link"
@@ -232,7 +233,7 @@ export default Vue.extend({
 });
 </script>
 
-<style>
+<style lang="less">
 .node circle {
     cursor: move;
 }
@@ -242,9 +243,13 @@ export default Vue.extend({
 }
 
 .link {
-      fill: none;
-      stroke: #409EFF;
-      stroke-opacity: 1.0;
-      stroke-width: 1.5px;
+    fill: none;
+    stroke: #409EFF;
+    stroke-opacity: 1.0;
+    stroke-width: 1.5px;
+
+    // Link paths should never handle pointer events, because they would block
+    // clicks on nodes.
+    pointer-events: none;
 }
 </style>

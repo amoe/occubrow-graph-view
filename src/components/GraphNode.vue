@@ -15,9 +15,10 @@
             :cx="cx"
             :cy="cy"
             :opacity="ghostOpacity"
+            v-on:click="onNodeClicked"
             v-on:mouseover="handleMouseover"
             v-on:mouseout="handleMouseout">
-      <title>This is a tooltip</title>
+      <title>{{textContent}}</title>
     </circle>
 
     <text dy="0.31em"
@@ -137,6 +138,9 @@ export default Vue.extend({
         })
     },
     methods: {
+        onNodeClicked(): void {
+            console.log("graphnode: node clicked");
+        },
         getNodeFill(): string {
             const strength = this.node.data.strength;
             const maximumStrength = this.maximumStrength;
