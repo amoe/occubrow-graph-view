@@ -64,7 +64,7 @@ export default Vue.extend({
     created() {
         bus.$on(events.DRAG_OPERATION_STARTED, () => this.globalDragStartHandler());
 
-        console.log("maximum strength is %o", this.maximumStrength);
+        log.debug("maximum strength is %o", this.maximumStrength);
     },
     mounted() {
         const instance = this;
@@ -76,7 +76,7 @@ export default Vue.extend({
 
             const vars = {
                 onDragStart: function(this: any) {
-                    console.log("drag started");
+                    log.debug("drag started");
                     instance.ghostOpacity = 0.2;
                     instance.ghostRadius = 16;
                     bus.$emit(events.DRAG_OPERATION_STARTED);
@@ -104,7 +104,7 @@ export default Vue.extend({
                     instance.$store.commit(mc.SET_HOVERED_NODE_INDICES, hoveredIndices);
                 },
                 onDragEnd: function(this: any) {
-                    console.log("drag ended");
+                    log.debug("drag ended");
 
 
                     // XXX: We don't know how to deal with this stuff yet.
@@ -145,7 +145,7 @@ export default Vue.extend({
             const hue = 180;   // blueish
 
             const shadedColor = shading.hsla(180, proportion, 50, 1.0);
-            console.log("shaded color is %o", shadedColor);
+            log.debug("shaded color is %o", shadedColor);
 
             return this.nodeFill[this.index] || shadedColor || this.defaultColor;
         },

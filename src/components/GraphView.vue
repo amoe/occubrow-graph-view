@@ -5,7 +5,7 @@
            a group of computed properties derived from the state. -->
       <!-- We just do it in this d3-ish way as a first pass. -->
 
-      <graph-node v-for="(node, index) in allIncludingRoot"
+      <graph-node v-for="(node, index) in tweenedHierarchy.descendants()"
                   ref="nodes"
                   :key="index"
                   :node="node"
@@ -26,13 +26,12 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import * as d3 from 'd3';
 import {SimulationNodeDatum} from 'd3-force';
 import layoutFunctions from '../layout-functions';
 import bus from '../event-bus';
 import events from '../events';
 import axios from 'axios';
-import { PolarPoint, CartesianPoint, GVNode, TokenTreeNode } from '../interfaces';
+import { PolarPoint, CartesianPoint, GVNode, TokenTreeNode, TokenDatum, TokenNode } from '../interfaces';
 import GraphNode from './GraphNode.vue';
 import {sprintf} from 'sprintf-js';
 import mc from '../mutation-constants';
@@ -40,7 +39,14 @@ import {mapGetters} from 'vuex';
 import Draggable from 'gsap/Draggable';
 import * as log from 'loglevel';
 import Mustache from 'mustache';
+import {hierarchy, cluster, HierarchyNode, HierarchyPointNode} from 'd3';
+import {intersectionBy, clone, cloneDeep} from 'lodash';        
+import {TweenLite} from 'gsap';
 
+interface TokenNodeIndex {
+    [key: string]: HierarchyPointNode<TokenDatum>
+}
+ 
 export default Vue.extend({
     props: {
         graphData: {
@@ -58,8 +64,15 @@ export default Vue.extend({
     },
     components: {GraphNode},
     data() {
+        // XXX: HACK remove duplication -- this is function operating over this.graphData
+        const depth = (this.width / 2) - this.depthOffset;
+        const clusterLayout = cluster().size([this.breadth, depth]);
+        const theHierarchy = hierarchy(this.graphData, d => d.children);
+        clusterLayout(theHierarchy);
+
         return {
-            initialized: false
+            initialized: false,
+            tweenedHierarchy: theHierarchy as HierarchyPointNode<TokenDatum>
         };
     },
     created() {
@@ -71,10 +84,43 @@ export default Vue.extend({
         this.saveNodes();
     },
     watch: {
+        // When the client user updates the graphData prop on their side, we'll
+        // save the change to Vuex.
         graphData(newData: TokenTreeNode, oldData: TokenTreeNode) {
-            console.log("GraphView: inside graph data watcher");
             this.$store.commit(mc.SAVE_GRAPH_DATA, newData);
             this.$nextTick(() => this.saveNodes());
+        },
+        // Then Vue will call this watcher on the computed property 'root',
+        // after reapplying the cluster layout to the new data.  At this point
+        // we know the final x and y positions of the new node set.
+        root(newData: HierarchyPointNode<TokenDatum>, oldData: HierarchyPointNode<TokenDatum>) {
+            // We need to know what nodes were in common with the old set
+            const oldNodeIndex = {} as TokenNodeIndex;
+            oldData.each(n => {
+                oldNodeIndex[n.data.content] = n;
+            });
+
+            // Not really sure about the reference semantics of this
+            this.tweenedHierarchy = newData;
+
+            this.tweenedHierarchy.each((n: HierarchyPointNode<TokenDatum>) => {
+                const token = n.data.content;
+                
+                if (token in oldNodeIndex) {
+                    const targetX = n.x;
+                    const targetY = n.y;
+
+                    const oldNode = oldNodeIndex[token];
+
+                    // it won't update until the next tick, so don't worry!
+                    // synchronously move the old nodes back to their old positions
+                    n.x = oldNode.x;
+                    n.y = oldNode.y;
+
+                    // now set async tweens running to move them to their new positions
+                    TweenLite.to(n, 0.5, {x: targetX, y: targetY});
+                }
+            });
         }
     },
     methods: {
@@ -156,47 +202,32 @@ export default Vue.extend({
         },
     },
     computed: {
-        graphTree() {
+        graphTree(): TokenNode {
             return this.$store.getters.graphTree;
         },
-        allButRoot: function(this: any) {
-            if (this.root === null) {
-                return [];
-            } else {
-                return this.filteredDescendants.slice(1);
-            }
+        allButRoot(): HierarchyNode<TokenDatum>[] {
+            return this.root.descendants().slice(1);
         },
-        allIncludingRoot: function(this: any) {
-            if (this.root === null) {
-                return [];
-            } else {
-                const value = this.filteredDescendants;
-                log.debug("allincludingroot = %o", value);
-                return value;
-            }
-        },
-        filteredDescendants: function (this: any) {
+        allIncludingRoot(): HierarchyNode<TokenDatum>[] {
             return this.root.descendants();
         },
-        rootTranslation: function(this: any) {
+        rootTranslation(): string {
             const xOffset = (this.width / 2) + this.xMargin;
             const yOffset = (this.height / 2) + this.yMargin;
             
             return "translate(" + xOffset + "," + yOffset + ")";
         },
-        root: function(this: any) {
-            const depth = (this.width / 2) - this.depthOffset;    // This is a radius
-
-            const cluster = d3.cluster().size([this.breadth, depth]);
-
-            // This is another option
-            let root = d3.hierarchy(this.graphDataFromStore, d => d.children);
-
-            return cluster(root);
+        graphDataFromStore(): TokenTreeNode {
+            return this.$store.getters.graphDataFromStore;
         },
-        widgetDropTargets: function(this: any) {
-            return this.$store.getters.widgetDropTargets;
-        }, ...mapGetters(['possibleRoots', 'selectedRoot', 'graphDataFromStore'])
+        root(): HierarchyNode<TokenDatum> {
+            const depth = (this.width / 2) - this.depthOffset;    // This is a radius
+            const clusterLayout = cluster().size([this.breadth, depth]);
+
+            const theHierarchy = hierarchy(this.graphDataFromStore, d => d.children);
+            clusterLayout(theHierarchy);
+            return theHierarchy;
+        }, ...mapGetters(['possibleRoots', 'selectedRoot'])
     }
 });
 </script>
