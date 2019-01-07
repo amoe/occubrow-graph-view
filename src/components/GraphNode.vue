@@ -139,7 +139,7 @@ export default Vue.extend({
     },
     methods: {
         onNodeClicked(): void {
-            console.log("graphnode: node clicked");
+            this.$emit('node-clicked', this.node);
         },
         getNodeFill(): string {
             const strength = this.node.data.strength;

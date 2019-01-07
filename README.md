@@ -34,6 +34,17 @@ moment if this is a bug or a feature.
                   :breadth="360"></graph-view>
     </svg>
 
+## Events
+
+The view will emit the event `node-clicked`.  Your handler function for this
+event should accept one argument of type `GVNode`.  eg.
+
+    methods: {
+        onNodeClicked(n: GVNode) {
+            console.log("clicked node was %o", node.data.content);
+        }
+    }
+
 
 ## Packaging as library
 

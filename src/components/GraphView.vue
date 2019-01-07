@@ -15,7 +15,8 @@
                   :text-transform="getTextRotation(node)"
                   :text-anchor="getTextAnchor(node)"
                   :text-x-offset="getTextXOffset(node)"
-                  :text-content="getNodeTextContent(node)">                  >
+                  :text-content="getNodeTextContent(node)"
+                  v-on:node-clicked="onNodeClicked">
       </graph-node>
 
 
@@ -125,6 +126,9 @@ export default Vue.extend({
         }
     },
     methods: {
+        onNodeClicked(node: GVNode) {
+            this.$emit('node-clicked', node);
+        },
         saveNodes() {
             log.debug("saving nodes");
             log.debug("node set was found as %o", this.$refs.nodes);

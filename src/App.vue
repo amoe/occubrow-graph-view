@@ -32,7 +32,7 @@ import TreeModel from 'tree-model';
 import mc from './mutation-constants';
 import axios from 'axios';
 import shading from '@/shading';
-import {TokenTreeNode} from '@/interfaces';
+import {TokenTreeNode, GVNode} from '@/interfaces';
 import {FAKE_API_DATA_1, FAKE_API_DATA_2} from '@/fake-api-data';
 
 export default Vue.extend({
@@ -61,8 +61,8 @@ export default Vue.extend({
 //        window.setInterval(this.changeData, 1000);
     },
     methods: {
-        handleNodeClicked(): void {
-            console.log("node was clicked");
+        handleNodeClicked(node: GVNode): void {
+            console.log("node was clicked: %o", node);
         },
         changeData(): void {
             // Alternate between two sets of demo data
