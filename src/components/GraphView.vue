@@ -40,6 +40,7 @@ import Draggable from 'gsap/Draggable';
 import * as log from 'loglevel';
 import Mustache from 'mustache';
 import {hierarchy, cluster, HierarchyNode} from 'd3';
+import {intersectionBy} from 'lodash';        
 
 export default Vue.extend({
     props: {
@@ -95,7 +96,12 @@ export default Vue.extend({
             // We know the position that we want from the new set.
             // The old nodes should be tweened to the position spec.
 
-            
+            const commonNodes = intersectionBy(
+                oldData.descendants(), newData.descendants(),
+                n => n.data.content
+            );
+
+            console.log("Common nodes are %o", commonNodes);
         }
     },
     methods: {
