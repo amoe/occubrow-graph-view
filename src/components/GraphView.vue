@@ -48,6 +48,11 @@ import {TweenLite} from 'gsap';
 interface TokenNodeIndex {
     [key: string]: HierarchyPointNode<TokenDatum>
 }
+
+function getClusterDimensions(breadth: number, width: number, depthOffset: number): [number, number] {
+    const depth = (width / 2) - depthOffset;
+    return [breadth, depth];
+}
  
 export default Vue.extend({
     props: {
@@ -67,8 +72,7 @@ export default Vue.extend({
     components: {GraphNode},
     data() {
         // XXX: HACK remove duplication -- this is function operating over this.graphData
-        const depth = (this.width / 2) - this.depthOffset;
-        const clusterLayout = cluster().size([this.breadth, depth]);
+        const clusterLayout = cluster().size(getClusterDimensions(this.breadth, this.width, this.depthOffset));
         const theHierarchy = hierarchy(this.graphData, d => d.children);
         clusterLayout(theHierarchy);
 
