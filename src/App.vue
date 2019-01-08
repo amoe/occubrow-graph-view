@@ -58,7 +58,7 @@ export default Vue.extend({
         this.$store.commit(mc.SELECT_ROOT, 'keep');
     },
     mounted() {
-        window.setInterval(this.changeData, 1000);
+//        window.setInterval(this.changeData, 1000);
     },
     methods: {
         handleNodeClicked(node: GVNode): void {

@@ -1,5 +1,7 @@
 <template>
     <g :transform="rootTranslation">
+      <depth-indicator-circles/>
+
       <!-- The group for nodes and their associated labels -->
       <!-- The funny thing is that it's totally possible to rewrite these as
            a group of computed properties derived from the state. -->
@@ -35,6 +37,7 @@ import events from '../events';
 import axios from 'axios';
 import { PolarPoint, CartesianPoint, GVNode, TokenTreeNode, TokenDatum, TokenNode } from '../interfaces';
 import GraphNode from './GraphNode.vue';
+import DepthIndicatorCircles from './DepthIndicatorCircles.vue';
 import {sprintf} from 'sprintf-js';
 import mc from '../mutation-constants';
 import {mapGetters} from 'vuex';
@@ -66,7 +69,7 @@ export default Vue.extend({
         breadth: {type: Number, required: true},
         textContentTemplate: {type: String, required: true}
     },
-    components: {GraphNode},
+    components: {GraphNode, DepthIndicatorCircles},
     data() {
         return {
             initialized: false,
@@ -224,7 +227,8 @@ export default Vue.extend({
             return this.$store.getters.graphDataFromStore;
         },
         root(): HierarchyPointNode<TokenDatum> {
-            const clusterLayout = cluster().size(getClusterDimensions(this.breadth, this.width, this.depthOffset));
+            const dimensions = getClusterDimensions(this.breadth, this.width, this.depthOffset);
+            const clusterLayout = cluster().size(dimensions);
             const theHierarchy = hierarchy(this.graphDataFromStore, d => d.children);
             clusterLayout(theHierarchy);
             return theHierarchy as HierarchyPointNode<TokenDatum>;

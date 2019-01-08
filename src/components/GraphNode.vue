@@ -5,6 +5,7 @@
     <circle class="real-node"
             r="16"
             :fill="getNodeFill()"
+            :stroke="getStroke()"
             ref="realNodeSvgCircle"/>
 
     <!-- The ghost node has to handle all of the events, because it's always
@@ -159,6 +160,9 @@ export default Vue.extend({
 
             return this.nodeFill[this.index] || shadedColor || this.defaultColor;
         },
+        getStroke(): string {
+            return "green";
+        },
         globalDragStartHandler() {
             log.debug("registered start of drag");
         },
@@ -204,5 +208,7 @@ export default Vue.extend({
 </script>
 
 <style>
-/* No styling yet */
+circle.real-node {
+    stroke-width: 0.1em;
+}
 </style>
