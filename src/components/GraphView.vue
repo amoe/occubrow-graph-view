@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+    import Vue from 'vue';
 import {SimulationNodeDatum} from 'd3-force';
 import layoutFunctions from '../layout-functions';
 import bus from '../event-bus';
@@ -53,7 +53,7 @@ interface TokenNodeIndex {
     [key: string]: HierarchyPointNode<TokenDatum>
 }
 
- 
+
 export default Vue.extend({
     props: {
         graphData: {
@@ -102,16 +102,16 @@ export default Vue.extend({
             oldData.each(n => {
                 oldNodeIndex[n.data.content] = n;
             });
-
+            
             // Not really sure about the reference semantics of this
             this.tweenedHierarchy = newData;
-
+            
             this.tweenedHierarchy.each((n: HierarchyPointNode<TokenDatum>) => {
                 const token = n.data.content;
-                
+                const targetX = n.x;
+                const targetY = n.y;
+
                 if (token in oldNodeIndex) {
-                    const targetX = n.x;
-                    const targetY = n.y;
 
                     const oldNode = oldNodeIndex[token];
 
@@ -122,12 +122,17 @@ export default Vue.extend({
 
                     // now set async tweens running to move them to their new positions
                     TweenLite.to(n, 0.5, {x: targetX, y: targetY});
+                } else {
+                    n.x = 0;
+                    n.y = 0;
+                    TweenLite.to(n, 0.5, {x: targetX, y: targetY});
                 }
             });
         }
     },
     methods: {
         onNodeClicked(node: GVNode) {
+            console.log("propagating click event");
             this.$emit('node-clicked', node);
         },
         saveNodes() {
