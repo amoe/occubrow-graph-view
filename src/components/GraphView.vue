@@ -44,15 +44,12 @@ import Mustache from 'mustache';
 import {hierarchy, cluster, HierarchyNode, HierarchyPointNode} from 'd3';
 import {intersectionBy, clone, cloneDeep} from 'lodash';        
 import {TweenLite} from 'gsap';
+import {clusterFresh, getClusterDimensions} from '@/cluster';
 
 interface TokenNodeIndex {
     [key: string]: HierarchyPointNode<TokenDatum>
 }
 
-function getClusterDimensions(breadth: number, width: number, depthOffset: number): [number, number] {
-    const depth = (width / 2) - depthOffset;
-    return [breadth, depth];
-}
  
 export default Vue.extend({
     props: {
@@ -71,14 +68,11 @@ export default Vue.extend({
     },
     components: {GraphNode},
     data() {
-        // XXX: HACK remove duplication -- this is function operating over this.graphData
-        const clusterLayout = cluster().size(getClusterDimensions(this.breadth, this.width, this.depthOffset));
-        const theHierarchy = hierarchy(this.graphData, d => d.children);
-        clusterLayout(theHierarchy);
-
         return {
             initialized: false,
-            tweenedHierarchy: theHierarchy as HierarchyPointNode<TokenDatum>
+            tweenedHierarchy: clusterFresh(
+                this.graphData, getClusterDimensions(this.breadth, this.width, this.depthOffset)
+            )
         };
     },
     created() {
@@ -229,13 +223,11 @@ export default Vue.extend({
         graphDataFromStore(): TokenTreeNode {
             return this.$store.getters.graphDataFromStore;
         },
-        root(): HierarchyNode<TokenDatum> {
-            const depth = (this.width / 2) - this.depthOffset;    // This is a radius
-            const clusterLayout = cluster().size([this.breadth, depth]);
-
+        root(): HierarchyPointNode<TokenDatum> {
+            const clusterLayout = cluster().size(getClusterDimensions(this.breadth, this.width, this.depthOffset));
             const theHierarchy = hierarchy(this.graphDataFromStore, d => d.children);
             clusterLayout(theHierarchy);
-            return theHierarchy;
+            return theHierarchy as HierarchyPointNode<TokenDatum>;
         }, ...mapGetters(['possibleRoots', 'selectedRoot'])
     }
 });
