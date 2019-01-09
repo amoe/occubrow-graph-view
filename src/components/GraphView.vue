@@ -1,6 +1,7 @@
 <template>
     <g :transform="rootTranslation">
-      <depth-indicator-circles/>
+      <depth-indicator-circles :radius="depthCircleRadius"
+                               :n-concentric="maxDepth + 1"/>
 
       <!-- The group for nodes and their associated labels -->
       <!-- The funny thing is that it's totally possible to rewrite these as
@@ -213,6 +214,17 @@ export default Vue.extend({
         },
     },
     computed: {
+        depthCircleRadius(): number {
+            const clusterDimensions = getClusterDimensions(this.breadth, this.width, this.depthOffset);
+            return clusterDimensions[1] / this.maxDepth;
+        },
+        maxDepth(): number {
+            var maxDepth = 0;
+            this.root.each((n: HierarchyPointNode<TokenDatum>) => {
+                if (n.depth > maxDepth)  maxDepth = n.depth;
+            });
+            return maxDepth;
+        },
         graphTree(): TokenNode {
             return this.$store.getters.graphTree;
         },
