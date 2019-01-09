@@ -1,7 +1,7 @@
 <template>
   <g>
     <circle v-for="i in nConcentric"
-            cx="0" cy="0" :r="i * baseRadius" stroke="red" fill="grey" :opacity="opacity"/>
+            cx="0" cy="0" :r="i * radius" stroke="red" fill="grey" :opacity="opacity"/>
   </g>
 </template>
 
@@ -9,11 +9,10 @@
 import Vue from 'vue';
 
 export default Vue.extend({
+    props: ['radius', 'nConcentric'],
     data() {
         return {
-            nConcentric: 4,
             opacity: 0.1,
-            baseRadius: 80
         };
     }
 });
