@@ -1,7 +1,7 @@
 <template>
     <g :transform="rootTranslation">
       <depth-indicator-circles :radius="depthCircleRadius"
-                               :n-concentric="maxDepth + 1"/>
+                               :n-concentric="oneBasedDepth + 1"/>
 
       <!-- The group for nodes and their associated labels -->
       <!-- The funny thing is that it's totally possible to rewrite these as
@@ -56,6 +56,7 @@ interface TokenNodeIndex {
 
 
 export default Vue.extend({
+    name: 'GraphView',
     props: {
         graphData: {
             required: true,
@@ -214,9 +215,15 @@ export default Vue.extend({
         },
     },
     computed: {
+        oneBasedDepth(): number {
+            return this.maxDepth + 1;
+        },
         depthCircleRadius(): number {
             const clusterDimensions = getClusterDimensions(this.breadth, this.width, this.depthOffset);
-            return clusterDimensions[1] / this.maxDepth;
+            console.log("cluster dimensions are %o", clusterDimensions);
+
+            // we shouldn't divide by zero
+            return clusterDimensions[1] / this.oneBasedDepth;
         },
         maxDepth(): number {
             var maxDepth = 0;

@@ -14,6 +14,9 @@ export default Vue.extend({
         return {
             opacity: 0.1,
         };
+    },
+    created() {
+        console.log("radius is %o", this.radius);
     }
 });
 </script>

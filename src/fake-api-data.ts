@@ -87,4 +87,12 @@ const FAKE_API_DATA_2: TokenTreeNode = {
     "strength": null,
 };
 
-export { FAKE_API_DATA_1, FAKE_API_DATA_2 };
+const FAKE_API_DATA_3 = {
+    "children": [],
+    "content": "Portman-square",
+    "id": 4122,
+    "label": "Token",
+    "strength": null
+}
+
+export { FAKE_API_DATA_1, FAKE_API_DATA_2, FAKE_API_DATA_3 };

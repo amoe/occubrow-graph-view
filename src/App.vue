@@ -50,7 +50,7 @@ export default Vue.extend({
             textOffset: 22,   // depends on circle radius
             breadth: 360,
             zoomDepth: 2,
-            myGraphData: FAKE_API_DATA_1 as TokenTreeNode,
+            myGraphData: FAKE_API_DATA_2 as TokenTreeNode,
             state: 0,
         };
     },
