@@ -62,11 +62,11 @@ export default Vue.extend({
     },
     methods: {
         handleNodeClicked(node: GVNode): void {
-            console.log("node was clicked: %o", node);
+            log.debug("node was clicked: %o", node);
         },
         changeData(): void {
             // Alternate between two sets of demo data
-            console.log("changing data");
+            log.debug("changing data");
 
             if (this.state % 2 === 0) {
                 this.myGraphData = FAKE_API_DATA_2;

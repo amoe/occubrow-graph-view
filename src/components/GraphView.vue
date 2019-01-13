@@ -82,7 +82,7 @@ export default Vue.extend({
     created() {
         this.$store.commit(mc.SAVE_GRAPH_DATA, this.graphData);
         this.initialized = true;
-        console.log("graph tree is %o", this.graphTree);
+        log.debug("graph tree is %o", this.graphTree);
     },
     mounted() {
         this.saveNodes();
@@ -133,7 +133,7 @@ export default Vue.extend({
     },
     methods: {
         onNodeClicked(node: GVNode) {
-            console.log("propagating click event");
+            log.debug("propagating click event");
             this.$emit('node-clicked', node);
         },
         saveNodes() {

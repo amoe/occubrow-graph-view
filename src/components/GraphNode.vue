@@ -119,7 +119,7 @@ export default Vue.extend({
                         e => this.hitTest(e)
                     );
 
-                    console.log("hit targets were %o", targetsHit);
+                    log.debug("hit targets were %o", targetsHit);
 
 
                     if (targetsHit.length !== 0) {
@@ -172,7 +172,7 @@ export default Vue.extend({
         handleMouseover(e: Event): void {
              this.hoverTimeout = window.setTimeout(
                  function() {
-                     console.log("hover event");
+                     log.debug("hover event");
                  },
                  constants.HOVER_RECENTER_ACTION_TIME_MS
              );
