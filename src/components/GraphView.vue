@@ -220,7 +220,6 @@ export default Vue.extend({
         },
         depthCircleRadius(): number {
             const clusterDimensions = getClusterDimensions(this.breadth, this.width, this.depthOffset);
-            console.log("cluster dimensions are %o", clusterDimensions);
 
             // we shouldn't divide by zero
             return clusterDimensions[1] / this.oneBasedDepth;

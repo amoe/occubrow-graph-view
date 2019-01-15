@@ -10,13 +10,14 @@
 
     <!-- The ghost node has to handle all of the events, because it's always
          in front of the real node.  -->
+    <!-- Events should be handled with draggable, which is smarter than
+         vue for these cases. -->
     <circle class="ghost-node"
             :r="ghostRadiusPx"
             ref="ghostNodeSvgCircle"
             :cx="cx"
             :cy="cy"
             :opacity="ghostOpacity"
-            v-on:click="onNodeClicked"
             v-on:mouseover="handleMouseover"
             v-on:mouseout="handleMouseout">
       <title>{{textContent}}</title>
@@ -111,7 +112,8 @@ export default Vue.extend({
                     TweenLite.to(
                         this.target, constants.TWEEN_GHOST_RETURN_TIME_SECONDS, { x: 0, y: 0 }
                     );
-                }
+                },
+                onClick: () => this.onNodeClicked()
             };
 
 
