@@ -108,28 +108,9 @@ export default Vue.extend({
                 onDragEnd: function(this: any) {
                     log.debug("drag ended");
 
-
-                    // XXX: We don't know how to deal with this stuff yet.
-                    /* 
-                    instance.$store.commit(mc.ACTIVATE_POPOVER);
-
-                    // hittest can't accept a class, only an id, and should really be element
-
-                    const targetsHit = instance.widgetDropTargets.filter(
-                        e => this.hitTest(e)
-                    );
-
-                    log.debug("hit targets were %o", targetsHit);
-
-
-                    if (targetsHit.length !== 0) {
-                        instance.$message('Widget hit detected');
-                    }
-
                     TweenLite.to(
                         this.target, constants.TWEEN_GHOST_RETURN_TIME_SECONDS, { x: 0, y: 0 }
                     );
-                    */
                 }
             };
 
