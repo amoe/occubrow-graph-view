@@ -120,11 +120,13 @@ export default Vue.extend({
                     
                     console.log("target is %o", this.target);
 
+                    // This seems to work in the demo, and then mysteriously
+                    // fails when combined into the -ui project.
                     TweenLite.to(
-                        this.target, constants.TWEEN_GHOST_RETURN_TIME_SECONDS, { x: startX, y: startY }
+                       this.target, constants.TWEEN_GHOST_RETURN_TIME_SECONDS, { x: startX, y: startY }
                     );
                 },
-                Onclick: () => this.onNodeClicked()
+                onClick: () => this.onNodeClicked()
             };
 
 
