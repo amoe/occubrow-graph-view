@@ -77,11 +77,20 @@ export default Vue.extend({
 
             log.debug("inside circle node callback");
 
+            // should never be used when 0, as initialized in onPress
+            var startX: number = 0;
+            var startY: number = 0;
+            
             const vars = {
+                onPress: function(this:any) {
+                    startX = this.x;
+                    startY = this.y;
+                },
                 onDragStart: function(this: any) {
                     log.debug("drag started");
                     instance.ghostOpacity = 0.2;
                     instance.ghostRadius = 16;
+
                     bus.$emit(events.DRAG_OPERATION_STARTED);
                 },
                 onDrag: function(this: any) {
@@ -108,12 +117,14 @@ export default Vue.extend({
                 },
                 onDragEnd: function(this: any) {
                     log.debug("drag ended");
+                    
+                    console.log("target is %o", this.target);
 
                     TweenLite.to(
-                        this.target, constants.TWEEN_GHOST_RETURN_TIME_SECONDS, { x: 0, y: 0 }
+                        this.target, constants.TWEEN_GHOST_RETURN_TIME_SECONDS, { x: startX, y: startY }
                     );
                 },
-                onClick: () => this.onNodeClicked()
+                Onclick: () => this.onNodeClicked()
             };
 
 
