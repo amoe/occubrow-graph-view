@@ -7,6 +7,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import * as log from 'loglevel';
 
 export default Vue.extend({
     props: ['radius', 'nConcentric'],
@@ -16,7 +17,7 @@ export default Vue.extend({
         };
     },
     created() {
-        console.log("radius is %o", this.radius);
+        log.debug("radius is %o", this.radius);
     }
 });
 </script>
