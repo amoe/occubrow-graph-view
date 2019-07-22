@@ -2,6 +2,10 @@
   "name": "occubrow-graph-view",
   "main": "dist/occubrow-graph-view.umd",
   "typings": "src/library-entry.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/amoe/occubrow-graph-view.git"
+  },
   "version": "0.6.5",
   "license": "MIT",
   "scripts": {
@@ -11,35 +15,35 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "@types/d3": "^5.0.1",
-    "@types/gsap": "^1.20.0",
-    "@types/lodash": "^4.14.119",
-    "@types/loglevel": "^1.5.3",
-    "@types/mustache": "^0.8.32",
-    "@types/sprintf-js": "^1.1.1",
-    "axios": "^0.18.0",
-    "d3": "^5.7.0",
-    "gsap": "^2.0.2",
-    "lodash": "^4.17.11",
-    "loglevel": "^1.6.1",
-    "mustache": "^3.0.1",
-    "sprintf-js": "^1.1.2",
-    "tree-model": "^1.0.7",
+    "@types/d3": "5.0.1",
+    "@types/gsap": "1.20.0",
+    "@types/lodash": "4.14.119",
+    "@types/loglevel": "1.5.3",
+    "@types/mustache": "0.8.32",
+    "@types/sprintf-js": "1.1.1",
+    "axios": "0.18.0",
+    "d3": "5.7.0",
+    "gsap": "2.0.2",
+    "lodash": "4.17.11",
+    "loglevel": "1.6.1",
+    "mustache": "3.0.1",
+    "sprintf-js": "1.1.2",
+    "tree-model": "1.0.7",
     "typeface-oxygen": "0.0.54",
-    "vue": "^2.5.17",
-    "vue-router": "^3.0.1",
-    "vuex": "^3.0.1"
+    "vue": "2.5.17",
+    "vue-router": "3.0.1",
+    "vuex": "3.0.1"
   },
   "devDependencies": {
-    "@types/jest": "^23.1.4",
-    "@vue/cli-plugin-typescript": "^3.2.0",
-    "@vue/cli-plugin-unit-jest": "^3.2.0",
-    "@vue/cli-service": "^3.2.0",
-    "@vue/test-utils": "^1.0.0-beta.20",
-    "less": "^3.0.4",
-    "less-loader": "^4.1.0",
-    "ts-jest": "^23.0.0",
-    "typescript": "^3.0.0",
-    "vue-template-compiler": "^2.5.17"
+    "@types/jest": "23.1.4",
+    "@vue/cli-plugin-typescript": "3.2.0",
+    "@vue/cli-plugin-unit-jest": "3.2.0",
+    "@vue/cli-service": "3.4.1",
+    "@vue/test-utils": "1.0.0-beta.20",
+    "less": "3.0.4",
+    "less-loader": "4.1.0",
+    "ts-jest": "24.0.0",
+    "typescript": "3.1.6",
+    "vue-template-compiler": "2.5.17"
   }
 }
