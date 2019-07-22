@@ -86,10 +86,18 @@ export default Vue.extend({
             };
         },
         yMarginPx: function (this: any) {
-            return document.documentElement.clientHeight * this.yMarginVh;
+            const doc = document.documentElement;
+            if (doc === null) {
+                throw new Error("somehow, doc was null");
+            }
+            return doc.clientHeight * this.yMarginVh;
         },
         xMarginPx: function (this: any) {
-            return document.documentElement.clientHeight * this.xMarginVh;
+            const doc = document.documentElement;
+            if (doc === null) {
+                throw new Error("somehow, doc was null");
+            }
+            return doc.clientHeight * this.xMarginVh;
         },
         count: function (this: any) {
             return this.$store.state.count;

@@ -6,7 +6,7 @@
     "type": "git",
     "url": "https://github.com/amoe/occubrow-graph-view.git"
   },
-  "version": "0.6.5",
+  "version": "0.7.0",
   "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",
