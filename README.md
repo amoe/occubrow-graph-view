@@ -24,7 +24,7 @@ this (in one of your JavaScript files):
 Note that the client needs to provide the parent SVG.  It's unclear at the
 moment if this is a bug or a feature.
 
-    <svg width="600" :height="600">
+    <svg width="600" height="600">
       <graph-view :width="600"
                   :height="600"
                   :x-margin="162"
