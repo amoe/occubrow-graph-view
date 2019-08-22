@@ -19,6 +19,12 @@ this (in one of your JavaScript files):
 
     import 'occubrow-graph-view/dist/occubrow-graph-view.css';
 
+The type of the node is denoted by the TS type `TokenTreeNode`.
+
+    import {TokenTreeNode} from 'occubrow-graph-view';
+
+This type is defined in `src/interfaces.ts`.
+
 ## Example usage
 
 Note that the client needs to provide the parent SVG.  It's unclear at the
