@@ -36,6 +36,8 @@ export type CategoryNode = Node<CategoryNodeModel>
 export interface TokenDatum {
     content: string;
     id: number;
+    // The label is an artifact of the Neo4j representation, and it will always
+    // be "Token".
     label: string;
     strength: number | null;    // strength can be null on the root node
 }
